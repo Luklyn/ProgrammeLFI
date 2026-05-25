@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordonner le monde - Mélenchon 2027</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,600;0,800;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* Charte graphique LFI & Mélenchon 2027 */
+        :root {
+            --lfi-orange: #e67e22;
+            --lfi-purple: #7928ca;
+            --lfi-dark: #121212;
+            --lfi-light: #f8f9fa;
+            --text-light: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.7);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.95) 60%, rgba(230, 126, 34, 0.1) 100%), var(--lfi-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .main-layout {
+            width: 80%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER */
+        header {
+            background-color: var(--lfi-dark);
+            width: 100vw;
+            margin-left: -12.5%;
+            padding: 30px 12.5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--text-light);
+        }
+
+        .logo-png {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 26px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            color: var(--lfi-orange);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 35px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent;
+        }
+        
+        nav a:hover, nav a.active {
+            color: var(--text-light);
+            border-bottom: 2px solid var(--lfi-orange);
+        }
+
+        /* FIL D'ARIANE */
+        .breadcrumb {
+            margin-top: 40px;
+        }
+
+        .breadcrumb a {
+            color: var(--lfi-orange);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            opacity: 0.8;
+        }
+
+        /* HERO HEADER DE LA THÉMATIQUE */
+        .theme-hero {
+            margin: 40px 0 60px 0;
+            border-left: 5px solid var(--lfi-orange);
+            padding-left: 25px;
+        }
+
+        .theme-hero h1 {
+            font-size: 46px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin: 0 0 15px 0;
+        }
+
+        .theme-hero h1 span {
+            color: var(--lfi-orange);
+        }
+
+        .theme-hero .subtitle {
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.5;
+            color: var(--text-light);
+            margin: 0 0 25px 0;
+            max-width: 800px;
+        }
+
+        /* Citations historiques */
+        .quotes-container {
+            margin-top: 40px;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .historic-quote {
+            margin: 0;
+            padding: 5px 0 5px 20px;
+            border-left: 3px solid var(--lfi-purple);
+        }
+
+        .historic-quote p {
+            font-size: 15px;
+            font-style: italic;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.85);
+            margin: 0 0 10px 0;
+            text-align: justify;
+        }
+
+        .historic-quote cite {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #a855f7;
+            font-style: normal;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 10px rgba(121, 40, 202, 0.3);
+        }
+
+        /* SECTION DES CHAPITRES */
+        .measures-section {
+            margin-bottom: 80px;
+        }
+
+        .measures-section h2 {
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .sub-measures-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .sub-measure-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            padding: 30px;
+            cursor: pointer;
+            transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .sub-measure-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(230, 126, 34, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .sub-measure-card h3 {
+            font-size: 18px;
+            text-transform: uppercase;
+            margin: 0 0 15px 0;
+            color: var(--text-light);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .sub-measure-card p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            font-weight: 300;
+            margin: 0;
+            text-align: justify;
+        }
+
+        /* POP-UPS / MODALES */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #121212 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid var(--lfi-orange);
+            
+            width: 90vw;
+            max-width: 1300px;
+            height: 80vh;
+            padding: 30px 35px;
+            
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: translateY(0);
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 28px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            line-height: 1;
+            z-index: 10;
+        }
+
+        .modal-close-btn:hover {
+            color: var(--lfi-orange);
+        }
+
+        /* EN-TÊTE DU DESIGN DE FICHE */
+        .fiche-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .fiche-badge {
+            background: var(--lfi-orange);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 4px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .fiche-category {
+            font-size: 12px;
+            color: var(--lfi-orange); /* Remplacement violet par lfi-orange */
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .modal-card h3 {
+            font-size: 24px;
+            text-transform: uppercase;
+            margin: 0 0 8px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .fiche-intro {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin: 0 0 20px 0;
+            line-height: 1.5;
+        }
+
+        /* SYSTÈME D'ONGLETS INTERNES */
+        .fiche-nav {
+            display: flex;
+            flex-wrap: wrap; /* Permet le passage à la ligne automatique */
+            gap: 8px;
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-tab {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            padding: 8px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .nav-tab:hover, .nav-tab.active {
+            background: var(--lfi-orange);
+            color: #fff;
+            border-color: var(--lfi-orange);
+        }
+
+        /* ZONE DU CONTENU DES ONGLETS */
+        .fiche-content {
+            overflow-y: auto;
+            flex-grow: 1;
+            padding-right: 12px;
+        }
+
+        .fiche-content::-webkit-scrollbar {
+            width: 5px;
+        }
+        .fiche-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .fiche-content::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        .modal-sub-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .modal-sub-list li {
+            border-left: 2px solid var(--lfi-cyan);
+            padding-left: 15px;
+            background: rgba(255, 255, 255, 0.01);
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .modal-sub-list strong {
+            display: block;
+            font-size: 15px;
+            color: #ffffff;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: -0.3px;
+        }
+
+        .modal-sub-list p {
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin: 0 0 8px 0;
+            text-align: justify;
+            padding-left: 1em;
+            text-indent: -1em;
+        }
+
+        .modal-sub-list p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Encart Sondage */
+        .did-you-know-box {
+            background: linear-gradient(90deg, rgba(230, 126, 34, 0.15) 0%, rgba(230, 126, 34, 0.05) 100%); /* Remplacement violet par orange */
+            border: 1px solid rgba(230, 126, 34, 0.3);
+            border-left: 4px solid var(--lfi-orange);
+            padding: 18px 22px;
+            border-radius: 4px;
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .did-you-know-title {
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--lfi-orange); /* Remplacement violet par orange */
+            letter-spacing: 0.5px;
+        }
+
+        .did-you-know-text {
+            font-size: 13.5px;
+            line-height: 1.5;
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        .did-you-know-text span {
+            color: var(--lfi-orange);
+            font-weight: 800;
+        }
+
+        .did-you-know-source {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.4);
+            font-style: italic;
+            align-self: flex-end;
+            margin-top: 4px;
+        }
+
+        /* FOOTER */
+        footer {
+            margin-top: auto;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .main-layout { width: 90%; }
+            .theme-hero h1 { font-size: 36px; }
+            .sub-measures-grid { grid-template-columns: 1fr; gap: 20px; }
+            .modal-card { height: 90vh; padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-layout">
+        
+        <header>
+            <a href="index.html" class="logo-container">
+                <img src="LFI_Logo.png" alt="Logo Phi" class="logo-png">
+                <div class="logo-text">Mélenchon<span>2027</span></div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="programme.html" class="active">Le Programme</a></li>
+                    <li><a href="simulateur.html">Simulateur</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="breadcrumb">
+            <a href="programme.html">← Retour au Programme</a>
+        </div>
+
+        <section class="theme-hero">
+            <h1>Ordonner le monde <span>.</span></h1>
+            <p class="subtitle">Défendre un ordre mondial altermondialiste basé sur la paix, le droit international et la coopération entre peuples.</p>
+            
+            <div class="quotes-container">
+                <blockquote class="historic-quote">
+                    <p>« Chaque période du développement humain suscite son genre particulier de conflits humains, son type propre de problèmes, que la force seule serait apparemment capable de résoudre. Et, chose paradoxale, en chaque occurrence la force s’est révélée incapable de résoudre réellement le problème. »</p>
+                    <cite>— Isaac Asimov, Les Robots, 1950</cite>
+                </blockquote>
+                <blockquote class="historic-quote">
+                    <p>« Le capitalisme porte en lui la guerre comme la nuée porte l’orage. »</p>
+                    <cite>— Jean Jaurès, Discours devant la Chambre des députés, 7 mars 1895</cite>
+                </blockquote>
+            </div>
+        </section>
+
+        <section class="measures-section">
+            <h2>Les orientations stratégiques</h2>
+            
+            <div class="sub-measures-grid">
+                <div class="sub-measure-card" data-modal="chapitre-diplomatie">
+                    <h3>Une diplomatie altermondialiste pour la paix</h3>
+                    <p>Refuser l'alignement automatique et réinvestir les instances multilatérales. Bâtir des partenariats basés sur le codéveloppement, le respect du droit international et le règlement pacifique des différends globaux.</p>
+                </div>
+
+                <div class="sub-measure-card" data-modal="chapitre-europe">
+                    <h3>Europe</h3>
+                    <p>Proposer une autre orientation européenne en s'affranchissant des règles austéritaires et des traités de libre-échange. Redonner la priorité à la souveraineté démocratique, aux droits sociaux et à l'urgence climatique.</p>
+                </div>
+
+                <div class="sub-measure-card" data-modal="chapitre-frontieres">
+                    <h3>Nouvelles frontières de l'humanité</h3>
+                    <p>Anticiper et réguler les espaces stratégiques de demain. Développer une souveraineté partagée et non marchande des communs mondiaux à travers la protection et l'exploration scientifique de la mer, de l'espace et du numérique.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="modal-overlay" id="chapitre-diplomatie">
+            <div class="modal-card">
+                <button class="modal-close-btn">&times;</button>
+                <div class="fiche-header">
+                    <span class="fiche-badge">Chapitre 16</span>
+                    <span class="fiche-category">International</span>
+                </div>
+                <h3>Une diplomatie altermondialiste pour la paix</h3>
+                <p class="fiche-intro">Plan complet pour une action internationale indépendante, non alignée, écologique et au service de la sécurité collective.</p>
+                
+                <div class="fiche-nav">
+                    <div class="nav-tab active" data-tab="tab-ch16-1">Indépendance</div>
+                    <div class="nav-tab" data-tab="tab-ch16-2">Défense Souveraine</div>
+                    <div class="nav-tab" data-tab="tab-ch16-3">Renforcer l'ONU</div>
+                    <div class="nav-tab" data-tab="tab-ch16-4">Droit International</div>
+                    <div class="nav-tab" data-tab="tab-ch16-5">Rupture Néolibérale</div>
+                    <div class="nav-tab" data-tab="tab-ch16-6">Biens Communs</div>
+                    <div class="nav-tab" data-tab="tab-ch16-7">Politique Migratoire</div>
+                    <div class="nav-tab" data-tab="tab-ch16-8">Outre-mer</div>
+                    <div class="nav-tab" data-tab="tab-ch16-9">Coopérations</div>
+                    <div class="nav-tab" data-tab="tab-ch16-10">Méditerranée</div>
+                    <div class="nav-tab" data-tab="tab-ch16-11">Afrique</div>
+                    <div class="nav-tab" data-tab="tab-ch16-12">Francophonie</div>
+                </div>
+                
+                <div class="fiche-content">
+                    <div class="tab-panel active" id="tab-ch16-1">
+                        <ul class="modal-sub-list">
+                            <li>
+                                <strong>Se retirer immédiatement du commandement intégré de l’OTAN puis, par étapes, de l’organisation elle-même</strong>
+                                <p>- Sortir la France de l’isolement occidental et recommencer à parler au monde entier en refusant la doctrine du « choc des civilisations », en portant une action internationale non alignée, au service de la paix, en promouvant une conception universelle et non dévoyée des droits humains.</p>
+                                <p>- Refuser toute inscription de notre pays dans une alliance militaire permanente dans la région asie-pacifique et ailleurs.</p>
+                                <p>- Engager la formation d’une nouvelle entente altermondialiste.</p>
+                                <p>- Rétablir le réseau diplomatique français et stopper son alignement sur l’atlantisme de l’Union européenne.</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-panel" id="tab-ch16-2">
+                        <ul class="modal-sub-list">
+                            <li>
+                                <strong>Rédiger un livre blanc et adopter une loi de programmation militaire visant à restaurer notre indépendance, notre souveraineté industrielle et mettre en œuvre notre adaptation au changement climatique</strong>
+                                <p>- Créer un pôle public de l’armement, stopper les privatisations des industries d’armement et des missions de défense nationale, puis les réintroduire dans le secteur public.</p>
+                                <p>- Faire de la France une puissance incontournable dans les technologies de rupture : miniaturisation, dronisation, intelligence artificielle, etc.</p>
+                                <p>- Prioriser l’acquisition de matériel militaire français dans l’armée.</p>
+                                <p>- Ouvrir la possibilité d’un service militaire comme composante optionnelle du service citoyen obligatoire.</p>
+                                <p>- Mobiliser l’espace numérique et la reality spatiale pour installer des systèmes défensifs et non létaux contre les agressions et pour la paix.</p>
+                                <p>- Donner à nos services de renseignement la capacité d’anticiper les risques, y compris sanitaires, liés aux bouleversements climatiques.</p>
+                                <p>- Adapter le matériel militaire et l’équipement de nos soldats à la nouvelle donne climatique.</p>
+                                <p>- Lancer un plan d’adaptation des infrastructures militaires vulnérables.</p>
+                                <p>- Donner les moyens au service de santé des armées, renforcer le dispositif ATHOS et simplifier l’indemnisation et la reconnaissance de la blessure psychique au sein de l’armée française.</p>
+                                <p>- Relancer les processus multilatéraux de désarmement nucléaire et conventionnel dans le cadre de la Conférence du désarmement de l’ONU et participer comme observateur au traité d’interdiction des armes nucléaires (TIAN).</p>
+                                <p>- Créer un Commissariat à la dissuasion de demain, chargé de réunir des chercheurs en pointe sur le sujet et de penser les différentes options alternatives au nucléaire.</p>
+                                <p>- Définir, avec la communauté internationale, une doctrine de sécurisation des sites nucléaires en zones de guerre et soutenir la protection immédiate des réacteurs en Ukraine par la présence de l’ONU, avec l’appui de l’Agence internationale de l’énergie atomique.</p>
+                            </li>
+                        </ul>
+                        <div class="did-you-know-box">
+                            <div class="did-you-know-title">Le saviez-vous ?</div>
+                            <p class="did-you-know-text"><span>96 %</span> des Français sont favorables à ce que les procédures administratives pour les blessés psychiques de guerre soient simplifiées.</p>
+                            <span class="did-you-know-source">Source : Harris Interactive, mai 2021</span>
+                        </div>
+                    </div>
+
+                    <div class="tab-panel" id="tab-ch16-3">
+                        <ul class="modal-sub-list">
+                            <li>
+                                <strong>Réaffirmer que l’ONU est le seul organe légitime pour la sécurité collective</strong>
+                                <p>- Refuser toute intervention militaire sans mandat clair de l’ONU, rétablir l’autorité du comité d’état-major des Nations unies.</p>
+                                <p>- Créer une Organisation mondiale de l’environnement et défendre l’ONU pour l’éducation, la science et la culture (UNESCO) et l’OMS libérée des intérêts de l’industrie pharmaceutique.</p>
+                                <p>- Agir pour une réforme du Conseil de sécurité et de l’Assemblée générale de l’ONU, afin que l’organisation fondée en 1945 soit représentative du monde actuel.</p>
+                                <p>- Réformer l’Organisation de l’ONU pour l’agriculture et l’alimentation (FAO) pour favoriser la souveraineté alimentaire, la régulation des marchés et la conversion écologique de l’agriculture.</p>
+                                <p>- Soutenir l’action de l’ONU, et notamment de l’UNRWA, en Palestine.</p>
+                                <p>- Construire sous l’égide de l’ONU des solutions politiques partout où la paix n’est pas garantie (Proche-Orient, Moyen-Orient, Afrique sahélienne, Cachemire, Caucase, etc.).</p>
+                                <p>- Porter l’idée de la création d’une force d’intervention et de sécurité écologique sous l’égide de l’ONU et d’un traité de non-prolifération des énergies carbonées.</p>
+                            </li>
+                        </ul>
+                        <div class="did-you-know-box">
+                            <div class="did-you-know-title">Le saviez-vous ?</div>
+                            <p class="did-you-know-text"><span>83 %</span> des Français sont favorables à ce que l’ONU joue un rôle plus important pour assurer la paix sur Terre.</p>
+                            <span class="did-you-know-source">Source : Harris Interactive, juillet 2021</span>
+                        </div>
+                    </div>
+
+                    <div class="tab-panel" id="tab-ch16-4">
+                        <ul class="modal-sub-list">
+                            <li>
+                                <strong>Appuyer le droit et la justice internationale, pour l'application des mesures de la CIJ et le jugement des criminels de guerre</strong>
+                                <p>- En Ukraine, agir pour créer un cadre diplomatique permettant d’obtenir un cessez-le-feu, le retrait des troupes russes, et l’ouverture de négociations pour une paix durable.</p>
+                                <p>- Rétablir un cadre paneuropéen stable donnant des garanties de sécurité crédibles à l’ensemble des pays d’Europe centrale et orientale.</p>
+                                <p>- Exiger un cessez-le-feu durable en Palestine et au Liban, la fin immédiate du blocus de la bande de Gaza et de l’annexion de la Cisjordanie et du plateau du Golan.</p>
+                                <p>- Mettre en place des sanctions contre le gouvernement Netanyahou, interrompre les accords de coopération économique avec Israël et décréter un embargo sur les armes.</p>
+                                <p>- Reconnaître l’État de Palestine.</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-panel" id="tab-ch16-5">
+                        <ul class="modal-sub-list">
+                            <li>
+                                <strong>Porter au sein du FMI, de la Banque mondiale et de l’OMC des propositions de rupture avec le néolibéralisme international, et réinvestir la CNUCED</strong>
+                                <p>- Intégrer le respect des règles fondamentales de l’Organisation internationale du travail dans les accords commerciaux.</p>
+                                <p>- Agir pour l’adoption à l’ONU d’un règlement contraignant les multinationales à respecter des normes sociales et environnementales.</p>
+                                <p>- Œuvrer à un règlement collectif des dettes publiques, indépendamment des mécanismes du marché, dans le cadre de la résolution votée par l’Assemblée générale de l’ONU en 2015.</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-panel" id="tab-ch16-6">
+                        <ul class="modal-sub-list">
+                            <li>
+                                <strong>Reconnaître un crime d’écocide</strong>
+                                <p>- Soutenir la création d’un tribunal international de justice climatique et environnementale.</p>
+                                <p>- Créer un tribunal international de justice économique pour juger les crimes financiers transnationaux.</p>
+                                <p>- Élargir le dispositif de la licence d’office et lever les brevets sur les vaccins face aux pandémies.</p>
+                                <p>- Soutenir un traité contraignant les multinationales à respecter les droits humains et l’environnement.</p>
+                                <p>- Faire de la question de l’eau, de sa protection et de son accès pour tous un enjeu prioritaire de la politique internationale.</p>
+                                <p>- Défendre la gestion des pôles arctique et antarctique comme des biens communs de l’humanité, protégés des activités militaires et économiques.</p>
+                                <p>- Constituer un détachement de Casques bleus de l’ONU pour faire face aux catastrophes naturelles.</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-panel" id="tab-ch16-7">
+                        <ul class="modal-sub-list">
+                            <li>
+                                <strong>Renforcer l’OIM et l'UNHCR et organiser une conférence annuelle sur les migrations</strong>
+                                <p>- S’opposer aux accords commerciaux inégaux afin d’éviter aux migrants de devoir fuir leur pays.</p>
+                                <p>- Créer un statut de « détresse environnementale » apportant une protection temporaire pouvant devenir durable.</p>
+                                <p>- Suspendre le règlement Dublin, renégocier les accords du Touquet.</p>
+                                <p>- Garantir pleinement le droit d’asile et la prise en compte des identités de genre et orientations sexuelles dans les procédures.</p>
+                                <p>- Abroger les dernières lois asile et immigration, et garantir l’accès à l’aide médicale d’État (AME).</p>
+                            </li>
+                        </ul>
+                        <div class="did-you-know-box">
+                            <div class="did-you-know-title">Le saviez-vous ?</div>
+                            <p class="did-you-know-text"><span>83 %</span> des Français sont favorables à un plan de co-développement initié par la France pour prévenir les migrations forcées.</p>
+                            <span class="did-you-know-source">Source : Harris Interactive, juillet 2021</span>
+                        </div>
+                    </div>
+
+                    <div class="tab-panel" id="tab-ch16-8">
+                        <ul class="modal-sub-list">
+                            <li>
+                                <strong>Construire des politiques internationales à partir des Outre-mer (préservation de l’Amazonie, aide aux peuples autochtones face aux bouleversements)</strong>
+                                <p>- Faire des Outre-mer des pôles régionaux de codéveloppement (transferts technologiques, formations de haut niveau, coopérations militaires de paix).</p>
+                                <p>- Rejoindre les coopérations régionales : la CELAC pour les Antilles/Guyane, l’Union africaine pour Mayotte, la CDAA et l’IORA pour La Réunion.</p>
+                                <p>- Construire l’avenir de la Nouvelle-Calédonie dans le respect des référendums, en lien avec les territoires voisins.</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-panel" id="tab-ch16-9">
+                        <ul class="modal-sub-list">
+                            <li>
+                                <strong>Consacrer 0,7 % du RNB à une aide publique au développement débarrassée du carcan néolibéral</strong>
+                                <p>- Agir pour la paix, respecter l’indépendance des États et la souveraineté des peuples.</p>
+                                <p>- Soutenir le projet de monnaie commune mondiale face au dollar.</p>
+                                <p>- Réformer « l’aide au développement » de l’AFD pour décider de son allocation avec les sociétés civiles sur place et éviter les logiques néocoloniales.</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-panel" id="tab-ch16-10">
+                        <ul class="modal-sub-list">
+                            <li>
+                                <strong>Créer un réseau d’universités méditerranéennes et un réseau de l’enseignement professionnel</strong>
+                                <p>- Créer une force méditerranéenne d’intervention et de sécurité civile pour lutter contre les incendies et pour le secours en mer.</p>
+                                <p>- Mettre en place une structure commune de lutte contre les pollutions et de gestion de la dépollution de la mer Méditerranée.</p>
+                                <p>- Étendre à la Méditerranée les normes écologiques applicables dans la mer Baltique (trafic maritime).</p>
+                                <p>- Créer une chaîne de télévision méditerranéenne multilingue diffusant sur les deux rives et sur Internet (sur le modèle d'Arte).</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-panel" id="tab-ch16-11">
+                        <ul class="modal-sub-list">
+                            <li>
+                                <strong>Bâtir une relation basée sur la souveraineté des peuples africains et les transformations de ce continent</strong>
+                                <p>- Réviser les accords de défense passés avec les pays africains, pour empêcher toute ingérence dans les affaires intérieures.</p>
+                                <p>- Permettre aux pays africains des zones CFA d’avoir une monnaie dont ils soient les seuls maîtres.</p>
+                                <p>- Annuler les dettes « odieuses » contractées par des dictatures dans le seul but d’enrichir le clan au pouvoir.</p>
+                                <p>- Créer une commission d’enquête indépendante sur le fiasco politique et militaire au Sahel.</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-panel" id="tab-ch16-12">
+                        <ul class="modal-sub-list">
+                            <li>
+                                <strong>Défendre l’usage du français dans les institutions internationales</strong>
+                                <p>- Créer un Erasmus francophone ainsi que des contenus éducatifs et des diplômes communs entre pays partenaires.</p>
+                                <p>- Participer à la création d’une revue scientifique francophone de premier plan au niveau mondial.</p>
+                                <p>- Créer une université francophone de l’espace proposant un cursus commun lié au secteur aérospatial.</p>
+                                <p>- Renforcer le réseau des Instituts et Alliances français et l’Assemblée parlementaire de la Francophonie (APF).</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="chapitre-europe">
+            <div class="modal-card">
+                <button class="modal-close-btn">&times;</button>
+                <div class="fiche-header">
+                    <span class="fiche-badge">Chapitre 17</span>
+                    <span class="fiche-category">Europe</span>
+                </div>
+                <h3>Europe</h3>
+                <p class="fiche-intro">Refondation des cadres européens, utilisation des leviers de négociation et application d'un programme de progrès social et écologique.</p>
+                
+                <div class="fiche-nav">
+                    <div class="nav-tab active" data-tab="tab-ch17-1">Leviers d'action</div>
+                    <div class="nav-tab" data-tab="tab-ch17-2">Désobéissance & Souveraineté</div>
+                </div>
+                
+                <div class="fiche-content">
+                    <div class="tab-panel active" id="tab-ch17-1">
+                        <ul class="modal-sub-list">
+                            <li>
+                                <strong>Utiliser tous les leviers d’action face aux institutions européennes</strong>
+                                <p><span>-</span>Utiliser le droit de veto de la France, par exemple pour refuser tous les nouveaux accords de libre-échange (avec le Mercosur, y compris révisé, le Chili, le Mexique, l’Inde, l’Indonésie, le Kenya, l’Australie, les Philippines, la Thaïlande, etc.) et tout nouvel élargissement sans harmonisation sociale, fiscale et environnementale préalable.</p>
+                                <p><span>-</span>Conditionner la contribution française au budget de l’Union européenne.</p>
+                                <p><span>-</span>Construire de nouvelles coopérations approfondies avec les États qui le souhaitent en matière sociale, écologique, culturelle, éducative, scientifique, etc.</p>
+                                <p><span>-</span>Déclencher la mobilisation citoyenne avec nos alliés politiques et la société civile en Europe pour augmenter l’autorité de nos points de vue.</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-panel" id="tab-ch17-2">
+                        <ul class="modal-sub-list">
+                            <li>
+                                <strong>Désobéir aux règles européennes incompatibles avec les urgences sociales et écologiques pour mettre en œuvre notre programme</strong>
+                                <p><span>-</span>Abroger les accords de libre-échange en vigueur (comme avec la Nouvelle-Zélande, le Canada, le Japon).</p>
+                                <p><span>-</span>Cesser d’appliquer unilatéralement les normes incompatibles avec nos engagements écologiques et sociaux telles que la directive sur le détachement des travailleurs, les règles budgétaires, les règles de la concurrence, la libre circulation des capitaux.</p>
+                                <p><span>-</span>Suspendre la participation (opt-out) de la France à certains programmes comme l’Europe de la défense et s’opposer à la reconduction d’un Commissaire européen à la Défense dont le poste participe à l’édification d’une Europe de la guerre.</p>
+                                <p><span>-</span>Utiliser les contradictions entre les règles européennes et nos engagements internationaux sur le climat ou le travail pour faire primer les normes les plus exigeantes.</p>
+                                <p><span>-</span>Réaffirmer la supériorité des principes fondamentaux inscrits dans la Constitution de la 6e République sur le droit européen et instaurer un principe de non-régression écologique et sociale : aucune norme européenne ne peut s’appliquer si elle est moins ambitieuse qu’une norme nationale sur le plan social ou écologique.</p>
+                            </li>
+                        </ul>
+                        
+                        <div class="did-you-know-box">
+                            <div class="did-you-know-title">Le saviez-vous ?</div>
+                            <p class="did-you-know-text"><span>68 %</span> des Français sont favorables à l’interdiction du travail détaché qui permet à des salariés d’un pays de l’Union européenne de venir travailler en France sans payer les mêmes cotisations sociales que les salariés et dirigeants français.</p>
+                            <span class="did-you-know-source">Source : Ifop, février 2019</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="chapitre-frontieres">
+            <div class="modal-card">
+                <button class="modal-close-btn">&times;</button>
+                <div class="fiche-header">
+                    <span class="fiche-badge">Chapitre 18</span>
+                    <span class="fiche-category">Recherche & Espaces Communs</span>
+                </div>
+                <h3>Nouvelles frontières de l'humanité</h3>
+                <p class="fiche-intro">Anticiper, réguler et préserver les espaces maritimes, extra-atmosphériques et numériques contre la marchandisation et la privatisation.</p>
+                
+                <div class="fiche-nav">
+                    <div class="nav-tab active" data-tab="tab-ch18-1">Mers & Océans</div>
+                    <div class="nav-tab" data-tab="tab-ch18-2">L'Espace</div>
+                    <div class="nav-tab" data-tab="tab-ch18-3">Le Numérique</div>
+                </div>
+                
+                <div class="fiche-content">
+                    <div class="tab-panel active" id="tab-ch18-1">
+                        <ul class="modal-sub-list">
+                            <li>
+                                <strong>Œuvrer à la création d’un droit international de la biodiversité marine, notamment dans les grands fonds</strong>
+                                <p><span>-</span>Faire de la France le leader mondial de la recherche et de l’éducation dans le secteur maritime.</p>
+                                <p><span>-</span>Créer un lycée de la mer dans chaque département maritime (y compris dans les Outre-mer).</p>
+                                <p><span>-</span>Développer la formation professionnelle dans le domaine des nouvelles techniques de pêche, d’aquaculture et d’algoculture durables au service de la bifurcation écologique.</p>
+                                <p><span>-</span>Proposer la construction de la première station sous-marine permanente sur le modèle de la station spatiale internationale.</p>
+                                <p><span>-</span>Gérer durablement la ressource via la pêche artisanale, lutter contre les pratiques de pêche illégales et refuser la marchandisation de la politique commune des pêches au niveau européen.</p>
+                                <p><span>-</span>Éradiquer les pratiques de pêche dangereuses, empêcher la réautorisation de la pêche électrique.</p>
+                                <p><span>-</span>Créer des aires marines protégées en haute-mer et augmenter leur niveau de protection.</p>
+                                <p><span>-</span>Défendre un moratoire sur les forages en Méditerranée et sur l’extraction minière en eaux profondes comme demandé par l’Union internationale pour la conservation de la nature (UICN).</p>
+                                <p><span>-</span>Porter la création d’un tribunal international pour la protection des océans.</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-panel" id="tab-ch18-2">
+                        <ul class="modal-sub-list">
+                            <li>
+                                <strong>Proposer un traité de non-militarisation de l'espace extra-atmosphérique et de préservation de l’orbite terrestre basse comme bien commun</strong>
+                                <p><span>-</span>Porter une gouvernance internationale de l’espace à l’ONU.</p>
+                                <p><span>-</span>Créer l’Agence internationale de gestion des débris spatiaux pour organiser le nettoyage de l’orbite terrestre basse.</p>
+                                <p><span>-</span>Renforcer les moyens du Centre national d'études spatiales (CNES) pour lui garantir son indépendance technologique et scientifique face aux acteurs privés.</p>
+                                <p><span>-</span>Favoriser la recherche publique fondamentale sur l'espace et les lanceurs réutilisables.</p>
+                                <p><span>-</span>Interdire la colonisation marchande et l'exploitation commerciale des ressources spatiales (Lune, astéroïdes, etc.).</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-panel" id="tab-ch18-3">
+                        <ul class="modal-sub-list">
+                            <li>
+                                <strong>Garantir la neutralité du net et bâtir une souveraineté numérique populaire face aux GAFAM</strong>
+                                <p><span>-</span>Inscrire le droit d’accès au numérique et la protection des données personnelles comme des droits constitutionnels fondamentaux.</p>
+                                <p><span>-</span>Développer un service public du numérique garantissant l’accès gratuit et universel aux services essentiels et l'utilisation de logiciels libres dans l'ensemble des administrations publiques et établissements scolaires.</p>
+                                <p><span>-</span>Nationaliser les infrastructures stratégiques de télécommunication et héberger l'ensemble des données publiques de santé et d'éducation sur des serveurs souverains situés en France.</p>
+                                <p><span>-</span>Défendre une gouvernance mondiale d’Internet en établissant une agence consacrée à l’ONU.</p>
+                                <p><span>-</span>Favoriser la coopération entre les États pour développer des solutions numériques émancipées des GAFAM.</p>
+                                <p><span>-</span>Renforcer l’excellence française dans le virtuel, soutenir les créations françaises dans un but émancipateur.</p>
+                                <p><span>-</span>Créer un centre national du jeu vidéo et développer une filière publique de formation dans ce domaine.</p>
+                                <p><span>-</span>Créer la mission nationale de maîtrise de l’intelligence artificielle composée de chercheurs de disciplines scientifiques diverses, d’ingénieurs et de parlementaires ayant pour mission de déterminer des chantiers pour développer des applications de l’intelligence artificielle utiles aux besoins sociaux et écologiques.</p>
+                                <p><span>-</span>Interdire certains usages de l’intelligence artificielle et du « big data » qui vont à l’encontre des droits sociaux : identifications biométriques, surveillance pour l’évaluation des droits sociaux, gestion des flux migratoires, notation des individus pour l’attribution de crédits, etc.</p>
+                                <p><span>-</span>Créer une fonderie française pour microprocesseurs.</p>
+                                <p><span>-</span>Réduire l’impact écologique du numérique (réglementations sur l’obsolescence programmée, politiques incitatives sur le low-code, indice carbone sur le Web…).</p>
+                                <p><span>-</span>Baisser la production de chaleur et la consommation électrique des data centers et soumettre ceux-ci à une autorisation de construction.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© Mélenchon 2027 - Tous droits réservés</p>
+            <p>Thématique 2 - Structure Multi-pages</p>
+        </footer>
+    </div>
+
+    <script>
+        const cards = document.querySelectorAll('.sub-measure-card');
+        const closeButtons = document.querySelectorAll('.modal-close-btn');
+        const overlays = document.querySelectorAll('.modal-overlay');
+
+        // Gestion de l'ouverture et fermeture des pop-ups
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                const modalId = card.getAttribute('data-modal');
+                const targetModal = document.getElementById(modalId);
+                if (targetModal) {
+                    targetModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        closeButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                btn.closest('.modal-overlay').classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        overlays.forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        // Gestion de la navigation par onglets à l'intérieur de la pop-up
+        const tabs = document.querySelectorAll('.nav-tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const parentCard = tab.closest('.modal-card');
+                
+                // Désactiver l'ancien onglet et masquer l'ancien volet
+                parentCard.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                parentCard.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                
+                // Activer l'onglet cliqué et son volet associé
+                tab.classList.add('active');
+                const targetPanelId = tab.getAttribute('data-tab');
+                parentCard.querySelector(`#${targetPanelId}`).classList.add('active');
+            });
+        });
+    </script>
+
+</body>
+</html>
