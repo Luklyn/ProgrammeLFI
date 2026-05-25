@@ -22,13 +22,8 @@ def load_api_keys():
         v.strip()
         for k, v in os.environ.items()
         if k.startswith("GOOGLE_API_KEY") or k.startswith("GEMINI_API_KEY")
-        if v and v.strip()
     ]
-    keys = list(dict.fromkeys(keys))
-    if not keys:
-        raise ValueError("Aucune clé API trouvée. Ajoute GOOGLE_API_KEY_1 sur Render")
-    print(f"{len(keys)} clés API chargées")
-    return keys
+    return list(dict.fromkeys([k for k in keys if k]))
 
 API_KEYS = load_api_keys()
 
@@ -41,15 +36,14 @@ class BudgetRequest(BaseModel):
     data: Dict[str, Any] = {}
 
 def analyse_avec_gemini(prompt: str) -> str:
-    for _ in range(len(API_KEYS)):
-        api_key = random.choice(API_KEYS)
+    for api_key in API_KEYS:
         try:
             genai.configure(api_key=api_key)
-            model = genai.GenerativeModel("gemini-1.5-flash")
+            model = genai.GenerativeModel("gemini-2.5-flash-preview-04-17")
             response = model.generate_content(prompt)
             return response.text
         except Exception as e:
-            print(f"Clé échouée: {e}")
+            print(f"Clé {api_key[:8]}... erreur: {e}")
             continue
     raise HTTPException(status_code=500, detail="Toutes les clés API ont échoué")
 
@@ -57,37 +51,24 @@ def analyse_avec_gemini(prompt: str) -> str:
 async def analyse_budget(req: BudgetRequest):
     reste_actuel = req.revenus - req.loyer - req.charges
     
-    prompt = f"""
-Tu es l'assistant du simulateur "L'Avenir en Commun" Mélenchon 2027.
-Analyse ce budget et explique ce que le programme change.
+    prompt = f"""Tu es l'assistant du simulateur "L'Avenir en Commun" Mélenchon 2027.
+Analyse ce budget.
 
-Données:
-- Revenus: {req.revenus}€
-- Loyer: {req.loyer}€
-- Charges: {req.charges}€
-- Situation: {req.situation}
-- Enfants: {req.enfants}
+Données: Revenus {req.revenus}€, Loyer {req.loyer}€, Charges {req.charges}€, {req.situation}, {req.enfants} enfants.
 
-Réponds en 3 parties:
-1. Situation actuelle (reste à vivre)
-2. Gains avec le programme (SMIC 1600€ net, blocage loyers, etc.)
+Réponds en 3 parties courtes:
+1. Situation actuelle
+2. Gains avec le programme (SMIC 1600€ net, blocage loyers)
 3. 3 mesures concrètes
-
-Ton: pédagogique, factuel.
 """
     resultat = analyse_avec_gemini(prompt)
     
     return {
         "success": True,
         "reste_a_vivre_actuel": round(reste_actuel, 2),
-        "analyse": resultat,
-        "cles_utilisees": len(API_KEYS)
+        "analyse": resultat
     }
 
 @app.get("/")
 async def root():
     return {"status": "ok", "keys_loaded": len(API_KEYS)}
-
-@app.get("/health")
-async def health():
-    return {"status": "healthy"}
