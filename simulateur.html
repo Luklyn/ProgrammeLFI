@@ -611,53 +611,68 @@
         }
 
         async function interrogerSimulateurIA() {
-            document.getElementById('stepCard-4').classList.remove('active');
-            document.getElementById('simulatorProgressBlock').style.display = 'none';
-            document.getElementById('loadingBlock').style.display = 'block';
-            window.scrollTo({ top: 120, behavior: 'smooth' });
+    // 1. Affiche le loader
+    document.getElementById('stepCard-4').classList.remove('active');
+    document.getElementById('simulatorProgressBlock').style.display = 'none';
+    document.getElementById('loadingBlock').style.display = 'block';
+    window.scrollTo({ top: 120, behavior: 'smooth' });
 
-            const dataPayload = {
-                sexe: document.getElementById('sexe').value,
-                trancheAge: document.getElementById('trancheAge').value,
-                statutPro: document.getElementById('statutPro').value,
-                tempsTravail: document.getElementById('tempsTravail').value || '35',
-                revenuIndiv: parseFloat(document.getElementById('revenuIndiv').value) || 0,
-                situationFoyer: document.getElementById('situationFoyer').value,
-                revenuConjoint: parseFloat(document.getElementById('revenuConjoint').value) || 0,
-                enfantsACharge: parseInt(document.getElementById('enfantsCharge').value) || 0,
-                localisation: document.getElementById('localisation').value,
-                ville: document.getElementById('departement').value || '',
-                statutLogement: document.getElementById('statutLogement').value,
-                montantLoyer: parseFloat(document.getElementById('montantLoyer').value) || 0,
-                modeChauffage: document.getElementById('modeChauffage').value,
-                factureEnergie: parseFloat(document.getElementById('factureEnergie').value) || 0,
-                isolation: document.getElementById('isolationLogement').value,
-                modeTransport: document.getElementById('modeTransport').value,
-                kmSemaine: parseFloat(document.getElementById('kmSemaine').value) || 0,
-                essenceHebdo: parseFloat(document.getElementById('essenceHebdo').value) || 0,
-                abonnementTransport: parseFloat(document.getElementById('abonnementTransport').value) || 0,
-                budgetAlimentation: parseFloat(document.getElementById('budgetAlimentation').value) || 0
-            };
+    // 2. Récupère toutes les valeurs du formulaire
+    const data = {
+        sexe: document.getElementById('sexe').value,
+        trancheAge: document.getElementById('trancheAge').value,
+        statutPro: document.getElementById('statutPro').value,
+        tempsTravail: document.getElementById('tempsTravail').value || "35",
+        revenuIndiv: parseFloat(document.getElementById('revenuIndiv').value) || 0,
+        situationFoyer: document.getElementById('situationFoyer').value,
+        revenuConjoint: parseFloat(document.getElementById('revenuConjoint').value) || 0,
+        enfantsACharge: parseInt(document.getElementById('enfantsACharge').value) || 0,
+        localisation: document.getElementById('localisation').value,
+        ville: document.getElementById('ville').value,
+        statutLogement: document.getElementById('statutLogement').value,
+        montantLoyer: parseFloat(document.getElementById('montantLoyer').value) || 0,
+        modeChauffage: document.getElementById('modeChauffage').value,
+        factureEnergie: parseFloat(document.getElementById('factureEnergie').value) || 0,
+        isolation: document.getElementById('isolation').value,
+        modeTransport: document.getElementById('modeTransport').value,
+        kmSemaine: parseFloat(document.getElementById('kmSemaine').value) || 0,
+        essenceHebdo: parseFloat(document.getElementById('essenceHebdo').value) || 0,
+        abonnementTransport: parseFloat(document.getElementById('abonnementTransport').value) || 0,
+        budgetAlimentation: parseFloat(document.getElementById('budgetAlimentation').value) || 0
+    };
 
-            try {
-                const response = await fetch('https://avenir-en-commun-melenchon2027.onrender.com/api/analyse-budget', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(data)
-            });
+    // 3. Appelle ton API Render
+    try {
+        const response = await fetch('https://avenir-en-commun-melenchon2027.onrender.com/api/analyse-budget', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        });
 
-                if (!response.ok) throw new Error("Réponse incorrecte du serveur API.");
-                const resultats = await response.json();
-                injecterResultats(resultats);
-
-            } catch (error) {
-                console.error("Erreur de liaison API :", error);
-                document.getElementById('aiVerdictHeadline').innerText = "Erreur de connexion";
-                document.getElementById('textBlocTravail').innerHTML = "<strong>Impossible d'établir la communication avec le module d'analyse.</strong><br><br>Vérifiez la configuration de votre serveur API ou de l'URL.";
-                document.getElementById('loadingBlock').style.display = 'none';
-                document.getElementById('resultsBlock').style.display = 'block';
-            }
+        if (!response.ok) {
+            throw new Error(`Erreur HTTP: ${response.status}`);
         }
+
+        const result = await response.json();
+
+        // 4. Affiche les résultats
+        document.getElementById('loadingBlock').style.display = 'none';
+        document.getElementById('resultsBlock').style.display = 'block';
+        
+        // Adapte ces lignes aux id de ta page de résultats
+        document.getElementById('headline').innerHTML = result.headline;
+        document.getElementById('bloc_travail').innerHTML = result.bloc_travail;
+        document.getElementById('bloc_logement').innerHTML = result.bloc_logement;
+        document.getElementById('bloc_transports').innerHTML = result.bloc_transports;
+        document.getElementById('bloc_famille').innerHTML = result.bloc_famille;
+
+    } catch (error) {
+        console.error('Erreur de liaison API :', error);
+        document.getElementById('loadingBlock').style.display = 'none';
+        document.getElementById('errorBlock').style.display = 'block';
+        document.getElementById('errorMessage').innerText = "Impossible d'établir la communication avec le module d'analyse. Réessaie dans 30s.";
+    }
+}
 
         function injecterResultats(data) {
             document.getElementById('aiVerdictHeadline').innerText = data.headline || "Analyse terminée";
