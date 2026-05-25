@@ -37,7 +37,7 @@
         }
 
         .main-layout {
-            width: 85%;
+            width: 80%;
             margin: 0 auto;
             position: relative;
             z-index: 1;
@@ -49,8 +49,8 @@
         header {
             background-color: var(--lfi-dark);
             width: 100vw;
-            margin-left: -15%;
-            padding: 30px 15%;
+            margin-left: -12.5%;
+            padding: 30px 12.5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -124,23 +124,10 @@
             color: rgba(255, 255, 255, 0.5);
         }
 
-        footer p {
-            margin: 0;
-        }
+        footer p { margin: 0; }
 
-        .footer-share {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .footer-share span {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.8;
-            color: rgba(255, 255, 255, 0.6);
-        }
+        .footer-share { display: flex; align-items: center; gap: 14px; }
+        .footer-share span { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; color: rgba(255, 255, 255, 0.6); }
 
         .footer-share a {
             display: inline-flex;
@@ -154,14 +141,8 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .footer-share a svg {
-            width: 16px;
-            height: 16px;
-            fill: rgba(255, 255, 255, 0.6);
-            transition: fill 0.3s ease;
-        }
+        .footer-share a svg { width: 16px; height: 16px; fill: rgba(255, 255, 255, 0.6); transition: fill 0.3s ease; }
 
-        /* Effet d'illumination Radiant LFI au survol */
         .footer-share a:hover {
             background: var(--lfi-gradient);
             border-color: transparent;
@@ -169,48 +150,17 @@
             box-shadow: 0 4px 12px rgba(204, 36, 67, 0.4);
         }
 
-        .footer-share a:hover svg {
-            fill: #ffffff;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .main-layout { width: 90%; }
-            .pillars-grid { grid-template-columns: 1fr; gap: 20px; }
-            .hero-section h1 { font-size: 38px; }
-            footer { flex-direction: column; gap: 15px; text-align: center; }
-        }
-
-        @media (max-width: 1024px) { .main-layout { width: 90%; } header { margin-left: -5%; padding: 30px 5%; } }
+        .footer-share a:hover svg { fill: #ffffff; }
 
         .simulator-layout { max-width: 700px; margin: 0 auto; width: 100%; }
         .results-wide-layout { max-width: 1400px; margin: 0 auto; width: 100%; }
 
-        .step-progress-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-            position: relative;
-        }
+        .step-progress-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; position: relative; }
+        .step-progress-bar::before { content: ''; position: absolute; top: 50%; left: 0; transform: translateY(-50%); height: 2px; background: rgba(255, 255, 255, 0.08); width: 100%; z-index: 1; }
 
-        .step-progress-bar::before {
-            content: ''; position: absolute; top: 50%; left: 0; transform: translateY(-50%);
-            height: 2px; background: rgba(255, 255, 255, 0.08); width: 100%; z-index: 1;
-        }
+        .step-progress-fill { position: absolute; top: 50%; left: 0; transform: translateY(-50%); height: 2px; background: var(--lfi-gradient); width: 0%; z-index: 2; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
 
-        .step-progress-fill {
-            position: absolute; top: 50%; left: 0; transform: translateY(-50%);
-            height: 2px; background: var(--lfi-gradient); width: 0%; z-index: 2;
-            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .step-dot {
-            width: 36px; height: 36px; border-radius: 50%; background: var(--lfi-dark);
-            border: 2px solid rgba(255, 255, 255, 0.15); display: flex; align-items: center;
-            justify-content: center; font-weight: 600; font-size: 13px; z-index: 3; transition: all 0.3s ease;
-        }
-
+        .step-dot { width: 36px; height: 36px; border-radius: 50%; background: var(--lfi-dark); border: 2px solid rgba(255, 255, 255, 0.15); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px; z-index: 3; transition: all 0.3s ease; }
         .step-dot.active { border-color: var(--lfi-red); background: var(--lfi-gradient); box-shadow: 0 0 15px rgba(204, 36, 67, 0.4); }
         .step-dot.completed { border-color: var(--lfi-purple); background: var(--lfi-purple); }
 
@@ -227,17 +177,13 @@
         }
 
         .simulator-step-card.active { display: block; }
-
         .simulator-step-card h2 { font-size: 24px; text-transform: uppercase; margin: 0 0 15px 0; letter-spacing: -0.5px; font-weight: 800; }
         .simulator-step-card p.intro-text { font-size: 15px; font-weight: 400; color: rgba(255, 255, 255, 0.9); margin-bottom: 25px; }
 
         .input-group { margin-bottom: 25px; }
         .input-group label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: rgba(255, 255, 255, 0.9); }
         
-        .input-field {
-            width: 100%; padding: 14px 16px; background: #1e1e1e; border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 4px; color: var(--text-light); font-family: 'Montserrat', sans-serif; font-size: 14px; transition: all 0.3s ease;
-        }
+        .input-field { width: 100%; padding: 14px 16px; background: #1e1e1e; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 4px; color: var(--text-light); font-family: 'Montserrat', sans-serif; font-size: 14px; transition: all 0.3s ease; }
         .input-field:focus { outline: none; border-color: var(--lfi-purple); box-shadow: 0 0 8px rgba(121, 40, 202, 0.3); }
 
         select.input-field { cursor: pointer; }
@@ -247,36 +193,20 @@
         .form-conditional-box.show { display: block; }
 
         .sim-actions { display: flex; justify-content: space-between; margin-top: 40px; gap: 15px; align-items: center; }
-        .btn-back {
-            background: transparent; color: var(--text-light); border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 14px 28px; border-radius: 4px; font-weight: 600; font-size: 13px; text-transform: uppercase;
-            cursor: pointer; transition: all 0.3s ease; letter-spacing: 0.5px;
-        }
+        .btn-back { background: transparent; color: var(--text-light); border: 1px solid rgba(255, 255, 255, 0.15); padding: 14px 28px; border-radius: 4px; font-weight: 600; font-size: 13px; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; letter-spacing: 0.5px; }
         .btn-back:hover { background: rgba(255, 255, 255, 0.04); border-color: rgba(255, 255, 255, 0.3); }
 
-        .btn-next {
-            background: var(--lfi-gradient); color: var(--text-light); border: none; padding: 14px 35px;
-            border-radius: 4px; font-weight: 600; font-size: 13px; text-transform: uppercase;
-            cursor: pointer; transition: all 0.3s ease; letter-spacing: 0.5px; box-shadow: 0 4px 15px rgba(204, 36, 67, 0.3);
-        }
+        .btn-next { background: var(--lfi-gradient); color: var(--text-light); border: none; padding: 14px 35px; border-radius: 4px; font-weight: 600; font-size: 13px; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; letter-spacing: 0.5px; box-shadow: 0 4px 15px rgba(204, 36, 67, 0.3); }
         .btn-next:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(204, 36, 67, 0.5); }
 
         .loading-section { display: none; text-align: center; padding: 40px; animation: fadeIn 0.4s ease forwards; }
-        .spinner {
-            width: 50px; height: 50px; border: 3px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%; border-top-color: var(--lfi-red); margin: 0 auto 20px auto; animation: spin 1s linear infinite;
-        }
+        .spinner { width: 50px; height: 50px; border: 3px solid rgba(255, 255, 255, 0.1); border-radius: 50%; border-top-color: var(--lfi-red); margin: 0 auto 20px auto; animation: spin 1s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
         .results-section { display: none; margin-top: 20px; animation: fadeIn 0.6s ease forwards; width: 100%; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .results-hero-card {
-            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08);
-            border-bottom: 3px solid transparent; border-image: var(--lfi-gradient) 1;
-            border-radius: 4px; padding: 30px 40px; text-align: left; margin-bottom: 35px;
-            display: flex; flex-direction: column; gap: 6px;
-        }
+        .results-hero-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-bottom: 3px solid transparent; border-image: var(--lfi-gradient) 1; border-radius: 4px; padding: 30px 40px; text-align: left; margin-bottom: 35px; display: flex; flex-direction: column; gap: 6px; }
         .results-hero-card h3 { font-size: 12px; text-transform: uppercase; margin: 0; letter-spacing: 2px; color: var(--lfi-red); font-weight: 600; }
         .results-hero-card .ai-verdict { font-size: 22px; font-weight: 800; line-height: 1.4; color: #ffffff; margin: 0; }
 
@@ -293,7 +223,6 @@
         .theme-card-header h4 { font-size: 14px; margin: 0; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; color: #ffffff; }
 
         .theme-card-body { font-size: 13.5px; line-height: 1.6; color: rgba(255, 255, 255, 0.85); }
-        
         .theme-card-body p { margin: 0 0 12px 0; }
         .theme-card-body p:last-child { margin-bottom: 0; }
         .theme-card-body ul { list-style: none; padding-left: 0; margin: 12px 0; }
@@ -304,6 +233,7 @@
         .btn-reset-container { text-align: center; margin-bottom: 20px; }
 
         @media (max-width: 1200px) { .theme-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+        @media (max-width: 1024px) { .main-layout { width: 90%; } header { margin-left: -5%; padding: 30px 5%; } }
         @media (max-width: 680px) { .theme-cards-grid { grid-template-columns: 1fr; } .results-hero-card { padding: 20px; } .results-hero-card .ai-verdict { font-size: 18px; } footer { flex-direction: column; gap: 15px; text-align: center; } }
     </style>
 </head>
@@ -312,22 +242,22 @@
     <div class="main-layout">
         
         <header>
-            <a href="index.html" class="logo-container">
+            <a href="#" class="logo-container">
                 <img src="LFI_Logo.png" alt="Logo Phi" class="logo-png">
                 <div class="logo-text">Mélenchon<span>2027</span></div>
             </a>
             <nav>
                 <ul>
-                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="#" class="active">Accueil</a></li>
                     <li><a href="programme.html">Le Programme</a></li>
-                    <li><a href="simulateur.html" class="active">Simulateur</a></li>
+                    <li><a href="simulateur.html">Simulateur</a></li>
                 </ul>
             </nav>
         </header>
 
         <section class="page-title-section">
             <h1>Le Simulateur Populaire <span class="title-slashes"><span class="slash-red">/</span><span class="slash-cyan">/</span><span class="slash-green">/</span><span class="slash-orange">/</span></span></h1>
-            <p>Une analysis budgétaire sur mesure propulsée par l'intelligence artificielle croisée aux mesures officielles.</p>
+            <p>Une analyse budgétaire sur mesure propulsée par l'intelligence artificielle croisée aux mesures officielles.</p>
         </section>
 
         <main>
@@ -600,27 +530,25 @@
         </main>
 
         <footer>
-    <p>&copy; 2026 - Proposition de refonte</p>
-    
-    <div class="footer-share">
-        <span>Partager :</span>
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmelenchon2027.netlify.app" target="_blank" rel="noopener noreferrer" title="Partager sur Facebook">
-            <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
-        </a>
-        <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram">
-            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-        </a>
-        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fmelenchon2027.netlify.app" target="_blank" rel="noopener noreferrer" title="Partager sur X">
-            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </a>
-    </div>
-</footer>
+            <p>&copy; 2026 - Proposition de refonte</p>
+            <div class="footer-share">
+                <span>Partager :</span>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmelenchon2027.netlify.app" target="_blank" rel="noopener noreferrer" title="Partager sur Facebook">
+                    <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
+                </a>
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </a>
+                <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fmelenchon2027.netlify.app" target="_blank" rel="noopener noreferrer" title="Partager sur X">
+                    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+            </div>
+        </footer>
 
     </div>
 
     <script>
-        const MODE_TEST_SANS_BACKEND = true; 
-        const BACKEND_API_URL = 'http://127.0.0.1:8000/api/analyse-budget';
+        const BACKEND_API_URL = 'https://avenir-en-commun-melenchon2027.onrender.com';
 
         let etapeActuelle = 1;
         const etapesTotales = 4;
@@ -688,60 +616,46 @@
             document.getElementById('loadingBlock').style.display = 'block';
             window.scrollTo({ top: 120, behavior: 'smooth' });
 
-            if (MODE_TEST_SANS_BACKEND) {
-                await new Promise(resolve => setTimeout(resolve, 1500));
-                
-                const fauxResultatBackend = {
-                    "headline": "+315 € / mois estimés en plus pour votre reste à vivre",
-                    "bloc_travail": "Votre situation professionnelle va directement bénéficier du passage du **SMIC à 1600 € net**.\n\n* En passant aux **32h sans baisse de salaire**, votre taux horaire réel augmente automatiquement.\n* Concernant l'impôt citoyen à **14 tranches**, votre niveau de revenu se situe sous le seuil d'augmentation, entraînant une baisse fiscale.",
-                    "bloc_logement": "L'**encadrement des loyers** stabilise directement vos charges fixes du foyer.\n\n* **Blocage des prix de l'énergie** (gaz et électricité).\n* Mise en place de la **gratuité des premiers kWh** indispensables pour couvrir vos besoins vitaux.",
-                    "bloc_transports": "Le blocage des prix du carburant à **1,50 € le litre maximum** met fin à la flambée de vos dépenses à la pompe.\n\n* Sur la base de votre budget essence hebdomadaire, le gain estimé est immédiat.\n* La prise en charge renforcée ou la baisse ciblée des abonnements de **transports collectifs** allège la facture pour vos trajets quotidiens.",
-                    "bloc_famille": "Vos enfants à charge bénéficient de mesures de gratuité intégrale de l'éducation publique :\n\n* **Cantine scolaire à 0 €**.\n* Fournitures et manuels scolaires entièrement pris en charge.\n* Accès garanti aux activités péri-scolaires."
-                };
+            const dataPayload = {
+                sexe: document.getElementById('sexe').value,
+                trancheAge: document.getElementById('trancheAge').value,
+                statutPro: document.getElementById('statutPro').value,
+                tempsTravail: document.getElementById('tempsTravail').value || '35',
+                revenuIndiv: parseFloat(document.getElementById('revenuIndiv').value) || 0,
+                situationFoyer: document.getElementById('situationFoyer').value,
+                revenuConjoint: parseFloat(document.getElementById('revenuConjoint').value) || 0,
+                enfantsACharge: parseInt(document.getElementById('enfantsCharge').value) || 0,
+                localisation: document.getElementById('localisation').value,
+                ville: document.getElementById('departement').value || '',
+                statutLogement: document.getElementById('statutLogement').value,
+                montantLoyer: parseFloat(document.getElementById('montantLoyer').value) || 0,
+                modeChauffage: document.getElementById('modeChauffage').value,
+                factureEnergie: parseFloat(document.getElementById('factureEnergie').value) || 0,
+                isolation: document.getElementById('isolationLogement').value,
+                modeTransport: document.getElementById('modeTransport').value,
+                kmSemaine: parseFloat(document.getElementById('kmSemaine').value) || 0,
+                essenceHebdo: parseFloat(document.getElementById('essenceHebdo').value) || 0,
+                abonnementTransport: parseFloat(document.getElementById('abonnementTransport').value) || 0,
+                budgetAlimentation: parseFloat(document.getElementById('budgetAlimentation').value) || 0
+            };
 
-                injecterResultats(fauxResultatBackend);
-            } else {
-                const dataPayload = {
-                    sexe: document.getElementById('sexe').value,
-                    trancheAge: document.getElementById('trancheAge').value,
-                    statutPro: document.getElementById('statutPro').value,
-                    tempsTravail: document.getElementById('tempsTravail').value || '35',
-                    revenuIndiv: parseFloat(document.getElementById('revenuIndiv').value) || 0,
-                    situationFoyer: document.getElementById('situationFoyer').value,
-                    revenuConjoint: parseFloat(document.getElementById('revenuConjoint').value) || 0,
-                    enfantsACharge: parseInt(document.getElementById('enfantsCharge').value) || 0,
-                    localisation: document.getElementById('localisation').value,
-                    ville: document.getElementById('departement').value || '',
-                    statutLogement: document.getElementById('statutLogement').value,
-                    montantLoyer: parseFloat(document.getElementById('montantLoyer').value) || 0,
-                    modeChauffage: document.getElementById('modeChauffage').value,
-                    factureEnergie: parseFloat(document.getElementById('factureEnergie').value) || 0,
-                    isolation: document.getElementById('isolationLogement').value,
-                    modeTransport: document.getElementById('modeTransport').value,
-                    kmSemaine: parseFloat(document.getElementById('kmSemaine').value) || 0,
-                    essenceHebdo: parseFloat(document.getElementById('essenceHebdo').value) || 0,
-                    abonnementTransport: parseFloat(document.getElementById('abonnementTransport').value) || 0,
-                    budgetAlimentation: parseFloat(document.getElementById('budgetAlimentation').value) || 0
-                };
+            try {
+                const response = await fetch(BACKEND_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dataPayload)
+                });
 
-                try {
-                    const response = await fetch(BACKEND_API_URL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(dataPayload)
-                    });
+                if (!response.ok) throw new Error("Réponse incorrecte du serveur API.");
+                const resultats = await response.json();
+                injecterResultats(resultats);
 
-                    if (!response.ok) throw new Error("Réponse incorrecte du serveur API.");
-                    const resultats = await response.json();
-                    injecterResultats(resultats);
-
-                } catch (error) {
-                    console.error("Erreur de liaison API :", error);
-                    document.getElementById('aiVerdictHeadline').innerText = "Erreur de connexion";
-                    document.getElementById('textBlocTravail').innerHTML = "<strong>Impossible d'établir la communication avec le module d'analyse.</strong><br><br>Vérifiez que le serveur Python (FastAPI) est actif sur le port 8000.";
-                    document.getElementById('loadingBlock').style.display = 'none';
-                    document.getElementById('resultsBlock').style.display = 'block';
-                }
+            } catch (error) {
+                console.error("Erreur de liaison API :", error);
+                document.getElementById('aiVerdictHeadline').innerText = "Erreur de connexion";
+                document.getElementById('textBlocTravail').innerHTML = "<strong>Impossible d'établir la communication avec le module d'analyse.</strong><br><br>Vérifiez la configuration de votre serveur API ou de l'URL.";
+                document.getElementById('loadingBlock').style.display = 'none';
+                document.getElementById('resultsBlock').style.display = 'block';
             }
         }
 
