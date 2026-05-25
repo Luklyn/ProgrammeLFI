@@ -87,6 +87,8 @@ async def analyse_budget(req: BudgetRequest):
 Tu es l'assistant de calcul officiel du simulateur de programme "L'Avenir en Commun" pour Jean-Luc Mélenchon 2027.
 Analyse la situation de ce citoyen et explique avec précision et pédagogie comment les mesures phares du programme vont impacter son reste à vivre et sa vie quotidienne.
 
+Tu dois utiliser mesures.json et Google Search pour faire une réponse personalisée et vérifier les informations
+
 Profil de l'utilisateur :
 - Sexe : {req.sexe}
 - Âge : Tranche {req.trancheAge}
@@ -99,11 +101,11 @@ Profil de l'utilisateur :
 
 Tu dois obligatoirement générer et renvoyer un objet JSON valide contenant exactement ces 5 clés :
 {{
-    "headline": "Une seule phrase d'accroche marquante résumant le gain financier global estimé",
-    "bloc_travail": "Texte explicatif court en Markdown sur l'augmentation du SMIC, baisse fiscale et les 32h.",
-    "bloc_logement": "Texte explicatif court en Markdown sur le blocage des prix énergie et encadrement loyers.",
-    "bloc_transports": "Texte explicatif court en Markdown sur le blocage des carburants et gratuité transports.",
-    "bloc_famille": "Texte explicatif court en Markdown sur la gratuité cantines et minima sociaux."
+    "headline": "Une seule phrase d'accroche marquante résumant les mesures phares qui profiteront à l'utilisateur",
+    "bloc_travail": "Texte explicatif court contextualisé sur la situation de l'utilisateur, en Markdown, sur l'augmentation du SMIC, baisse fiscale et les 32h.",
+    "bloc_logement": "Texte explicatif court en Markdown les mesures du programme LFI applicables au profil de l'utilisateur en matière de logement",
+    "bloc_transports": "Texte explicatif court en Markdown les mesures du programme LFI applicables au profil de l'utilisateur en matière de transport et mesures écologiques",
+    "bloc_famille": "Texte explicatif court en Markdown les mesures du programme LFI applicables au profil de l'utilisateur sur les questions de la famille, des enfants, de l'école etc"
 }}
 
 Consignes de rédaction :
