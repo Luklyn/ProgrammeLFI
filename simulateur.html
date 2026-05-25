@@ -643,10 +643,10 @@ async function interrogerSimulateurIA() {
 
     // 3. Appelle ton API Render
     try {
-        const response = await fetch('https://avenir-en-commun-melenchon2027.onrender.com/api/analyse-budget', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data)
+        const response = await fetch(`${BACKEND_API_URL}/api/analyse-budget`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
         });
 
         if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`);
