@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Programme - Mélenchon 2027</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,600;0,800;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* Charte graphique LFI & Mélenchon 2027 */
+        :root {
+            --lfi-red: #cc2443;
+            --lfi-dark: #121212;
+            --lfi-light: #f8f9fa;
+            --lfi-cyan: #00938f;
+            --lfi-green: #2ecc71;
+            --lfi-orange: #e67e22;
+            --text-light: #ffffff;
+            --text-dark: #1a1a1a;
+            /* Dégradé rouge/violet harmonisé */
+            --lfi-gradient: linear-gradient(135deg, #cc2443 0%, #7928ca 100%);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.92) 50%, rgba(121, 40, 202, 0.15) 100%), var(--lfi-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .main-layout {
+            width: 80%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER */
+        header {
+            background-color: var(--lfi-dark);
+            width: 100vw;
+            margin-left: -12.5%;
+            padding: 30px 12.5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--text-light);
+        }
+
+        .logo-png {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 26px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            background: var(--lfi-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 35px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease, border-image 0.3s ease;
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent;
+        }
+        
+        nav a:hover, nav a.active {
+            color: var(--text-light);
+            border-bottom: 2px solid transparent;
+            border-image: var(--lfi-gradient) 1;
+        }
+
+        /* BANNIÈRE DE TITRE DE LA PAGE */
+        .page-title-section {
+            margin: 60px 0;
+        }
+
+        .page-title-section h1 {
+            font-size: 42px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin: 0 0 10px 0;
+            display: flex;          
+            align-items: center;    
+        }
+
+        .title-slashes {
+            display: inline-flex;
+            margin-left: 15px;
+            letter-spacing: -4px;   
+            font-size: 38px;        
+            font-weight: 800;
+        }
+        
+        /* Modification ici : le premier slash repasse en lfi-red (rouge uni) */
+        .slash-red { 
+            color: var(--lfi-red);
+        }
+        .slash-cyan { color: var(--lfi-cyan); }
+        .slash-green { color: var(--lfi-green); }
+        .slash-orange { color: var(--lfi-orange); }
+
+        .page-title-section p {
+            font-size: 16px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0;
+        }
+
+        /* SECTIONS DES GRANDS PILIERS */
+        .pillar-section {
+            padding: 0;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .measure-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px 30px;
+            border-radius: 6px;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .pillar-section#revolution-citoyenne .measure-card { border-left: 4px solid var(--lfi-red); }
+        .pillar-section#humains-entre-eux .measure-card { border-left: 4px solid var(--lfi-cyan); }
+        .pillar-section#humains-nature .measure-card { border-left: 4px solid var(--lfi-green); }
+        .pillar-section#ordonner-monde .measure-card { border-left: 4px solid var(--lfi-orange); }
+
+        .measure-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.06);
+        }
+        
+        .pillar-section#revolution-citoyenne .measure-card:hover { border-color: var(--lfi-red); }
+        .pillar-section#humains-entre-eux .measure-card:hover { border-color: var(--lfi-cyan); }
+        .pillar-section#humains-nature .measure-card:hover { border-color: var(--lfi-green); }
+        .pillar-section#ordonner-monde .measure-card:hover { border-color: var(--lfi-orange); }
+
+        .measure-card h2 {
+            font-size: 24px;
+            text-transform: uppercase;
+            margin: 0 0 15px 0;
+            letter-spacing: -0.5px;
+            color: var(--text-light);
+        }
+        .measure-card h2 span {
+            font-weight: 800;
+        }
+        .measure-card h2 span.dot-red { color: var(--lfi-red); }
+        .measure-card h2 span.dot-cyan { color: var(--lfi-cyan); }
+        .measure-card h2 span.dot-green { color: var(--lfi-green); }
+        .measure-card h2 span.dot-orange { color: var(--lfi-orange); }
+
+        .measure-card p.intro-text {
+            font-size: 15px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .measure-card p {
+            margin: 0 0 25px 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+            text-align: justify;
+        }
+
+        .btn-more {
+            margin-top: auto;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: padding-left 0.3s ease;
+        }
+        
+        .measure-card:hover .btn-more {
+            padding-left: 5px;
+        }
+        
+        .pillar-section#revolution-citoyenne .btn-more { color: var(--lfi-red); }
+        .pillar-section#humains-entre-eux .btn-more { color: var(--lfi-cyan); }
+        .pillar-section#humains-nature .btn-more { color: var(--lfi-green); }
+        .pillar-section#ordonner-monde .btn-more { color: var(--lfi-orange); }
+
+        /* GRILLE PRINCIPALE */
+        main {
+           display: grid;
+           grid-template-columns: repeat(2, 1fr);
+           gap: 40px;
+           align-items: stretch;
+           margin-bottom: 60px;
+        }
+
+        .measures-grid {
+            display: block;
+            height: 100%;
+        }
+
+        /* FOOTER */
+        footer {
+            margin-top: auto;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .main-layout { width: 90%; }
+            main {
+               grid-template-columns: 1fr;
+               gap: 30px;
+            }
+        }
+</style>
+</head>
+<body>
+
+    <div class="main-layout">
+        
+        <header>
+            <a href="index.html" class="logo-container">
+                <img src="LFI_Logo.png" alt="Logo Phi" class="logo-png">
+                <div class="logo-text">Mélenchon<span>2027</span></div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="programme.html" class="active">Le Programme</a></li>
+                    <li><a href="simulateur.html">Simulateur</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="page-title-section">
+            <h1>Le Programme : les 4 piliers thématiques <span class="title-slashes"><span class="slash-red">/</span><span class="slash-cyan">/</span><span class="slash-green">/</span><span class="slash-orange">/</span></span></h1>
+            <p>Découvrez les propositions fondamentales pour une transformation démocratique, écologique et sociale.</p>
+        </section>
+
+        <main>
+            <section id="revolution-citoyenne" class="pillar-section">
+                <div class="measures-grid">
+                    <a href="revolution-citoyenne.html" class="measure-card">
+                        <h2>Faire la révolution citoyenne <span class="dot-red">.</span></h2>
+                        <p class="intro-text">Passer à la 6e République pour redonner le pouvoir au peuple et en finir avec la monarchie présidentielle.</p>
+                        <p>La Ve République a fait son temps. Une petite caste de privilégiés, dirigée par le président-monarque, désorganise l’État et dirige à son profit. Macron piétine même le résultat des élections, comme l’avait été le résultat du vote des français lors du référendum sur la constitution européenne en 2005. Ce système dresse les Français les uns contre les autres. Il efface le peuple au profit d’une dérive autoritaire toujours plus marquée. La France d’aujourd’hui n’a plus le visage de 1958, quand la Constitution actuelle a été adoptée. À cette nouvelle France doit correspondre une nouvelle République. Ce sera le moyen pour le peuple de se refonder en écrivant lui-même les règles du jeu : la nouvelle Constitution. La révolution citoyenne vise à faire progresser partout la démocratie et l’intervention populaire : dans les institutions mais aussi dans la ville, et dans l’entreprise. Elle veut établir le primat de l’intérêt général sur les intérêts particuliers des ultra-riches et des plus gros propriétaires du pays. Enfin, la France doit renouer avec l’amour de la liberté.</p>
+                        <div class="btn-more">Découvrir les mesures →</div>
+                    </a>
+                </div> 
+            </section>
+
+            <section id="humains-entre-eux" class="pillar-section">
+                <div class="measures-grid">
+                    <a href="harmonie-humains-entre-eux.html" class="measure-card">
+                        <h2>L'harmonie des êtres humains entre eux <span class="dot-cyan">.</span></h2>
+                        <p class="intro-text">Refonder le lien social par l’égalité réelle, la lutte contre les discriminations et les violences.</p>
+                        <p>La nouvelle France veut être unie. Si elle veut faire face aux grands défis du présent, elle doit pouvoir compter sur la force de l’entraide. Ainsi, il est urgent d’en finir avec la société des privilèges, les grandes disparités de richesses et d’éradiquer l’abandon social. Chacun doit pouvoir vivre selon ses besoins, et contribuer selon ses moyens. Le racisme et le sexisme, des poisons qui introduisent des hiérarchies entre humains, sont ses ennemis jurés. La nouvelle France veut être libre. Si elle veut poursuivre ses propres objectifs, elle doit sortir son économie des griffes de la finance. Elle doit mettre la production au service de l’humain et de ses besoins, et en finir avec le mal-être au travail.</p>
+                        <div class="btn-more">Découvrir les mesures →</div>
+                    </a>
+                </div> 
+            </section>
+
+            <section id="humains-nature" class="pillar-section">
+                <div class="measures-grid">
+                    <a href="harmonie-humains-nature.html" class="measure-card">
+                        <h2>L'harmonie des êtres humains avec la nature <span class="dot-green">.</span></h2>
+                        <p class="intro-text">Appliquer la règle verte : ne pas prélever plus à la nature que ce qu’elle peut reconstituer.</p>
+                        <p>Le capitalisme financiarisé épuise les humains et les écosystèmes. Construire une société de l’harmonie avec la nature suppose donc de rompre avec ce système. Les destructions et dévastations dues à des phénomènes climatiques extrêmes, aux pandémies et aux autres conséquences du changement climatique s’intensifient et sont de plus en plus violentes. Si ces catastrophes détruisent, c’est l’impréparation, la pauvreté et le chacun pour soi qui tuent. Quand l’ère est à l’incertitude provoquée par le bouleversement des cycles de la nature, il est temps de passer au « tous ensemble ». Nos sociétés font face à une réalité : le changement climatique est irréversible et va s’aggraver tant qu’aucune de ses causes n’est traitée. Il s’agit donc désormais à la fois de le freiner pour garantir la survie des sociétés humaines et de nous adapter à cette nouvelle donne climatique. Notre outil sera la planification puisque le marché et la concurrence ont montré leur incapacité à relever ces défis.</p>
+                        <div class="btn-more">Découvrir les mesures →</div>
+                    </a>
+                </div> 
+            </section>
+
+            <section id="ordonner-monde" class="pillar-section">
+                <div class="measures-grid">
+                    <a href="ordonner-le-monde.html" class="measure-card">
+                        <h2>Ordonner le monde <span class="dot-orange">.</span></h2>
+                        <p class="intro-text">Défendre un ordre mondial altermondialiste basé sur la paix, le droit international et la coopération entre peuples.</p>
+                        <p>Les guerres aux quatre coins du monde nous rappellent chaque jour l’urgence de la paix. Ces dernières années ont vu le retour de l’utilisation massive des crimes de guerre pour imposer sa volonté par la force. Nous ne pouvons l’accepter. La réponse doit être un renforcement du système de justice internationale. Nous sommes aussi les témoins d’une nouvelle compétition impériale, ô combien dangereuse pour le monde et son peuple humain. Il nous faut bâtir une France indépendante, guidée par les principes du droit international, et non alignée sur tous les empires. Nous avons à construire de nouveaux horizons de progrès écologique pour protéger les biens communs de l’humanité et nous porter aux nouvelles frontières que sont l’espace, les mers et le numérique.</p>
+                        <div class="btn-more">Découvrir les mesures →</div>
+                    </a>
+                </div> 
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 - Template officiel de travail - Front-end Mock-up v2</p>
+            <p>Page Programme - Structure Multi-pages | Dégradé Rouge-Violet Appliqué</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
