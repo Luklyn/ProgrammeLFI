@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,600;0,800;1,400&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
     <style>
                 :root {
             --lfi-red: #cc2443;
@@ -642,17 +642,22 @@
             document.getElementById('loadingBlock').style.display = 'block';
             window.scrollTo({ top: 120, behavior: 'smooth' });
 
-            const revenuIndiv = parseFloat(document.getElementById('revenuIndiv').value) || 0;
-            const revenuConjoint = parseFloat(document.getElementById('revenuConjoint').value) || 0;
-            const factureEnergie = parseFloat(document.getElementById('factureEnergie').value) || 0;
-            const budgetAlimentation = parseFloat(document.getElementById('budgetAlimentation').value) || 0;
-
             const dataPayload = {
-                revenus: revenuIndiv + revenuConjoint,
-                loyer: 0,
-                charges: factureEnergie + budgetAlimentation,
-                situation: document.getElementById('situationFoyer').value,
-                enfants: parseInt(document.getElementById('enfantsCharge').value) || 0
+                statutPro: document.getElementById('statutPro').value,
+                tempsTravail: document.getElementById('tempsTravail').value,
+                revenuIndiv: parseFloat(document.getElementById('revenuIndiv').value) || 0,
+                situationFoyer: document.getElementById('situationFoyer').value,
+                revenuConjoint: parseFloat(document.getElementById('revenuConjoint').value) || 0,
+                enfantsACharge: parseInt(document.getElementById('enfantsCharge').value) || 0,
+                localisation: document.getElementById('localisation').value,
+                ville: document.getElementById('departement').value,
+                statutLogement: document.getElementById('statutLogement').value,
+                modeChauffage: document.getElementById('modeChauffage').value,
+                factureEnergie: parseFloat(document.getElementById('factureEnergie').value) || 0,
+                isolation: document.getElementById('isolationLogement').value,
+                modeTransport: document.getElementById('modeTransport').value,
+                kmSemaine: parseFloat(document.getElementById('kmSemaine').value) || 0,
+                budgetAlimentation: parseFloat(document.getElementById('budgetAlimentation').value) || 0
             };
 
             try {
@@ -662,22 +667,29 @@
                     body: JSON.stringify(dataPayload)
                 });
 
-                if (!response.ok) {
-                    throw new Error('Erreur serveur');
-                }
+                if (!response.ok) throw new Error('Erreur serveur');
 
                 const resultats = await response.json();
 
-                document.getElementById('aiVerdictHeadline').innerText = `Analyse de votre budget`;
-                document.getElementById('textBlocTravail').innerHTML = marked.parse(resultats.analyse || '');
+                document.getElementById('aiVerdictHeadline').innerText = resultats.headline || "Votre simulation";
+
+                let texte = resultats.bloc_travail || '';
+                // Nettoyage : on retire le markdown, on garde des phrases claires
+                texte = texte.replace(/\*\*(.*?)\*\*/g, '$1');
+                texte = texte.replace(/#{1,6}\s?/g, '');
+                texte = texte.replace(/\* /g, '• ');
+                texte = texte.replace(/\n\n/g, '</p><p>');
+                texte = texte.replace(/\n/g, '<br>');
+
+                document.getElementById('textBlocTravail').innerHTML = '<p>' + texte + '</p>';
                 document.getElementById('textBlocLogement').innerHTML = '';
                 document.getElementById('textBlocTransports').innerHTML = '';
-                document.getElementById('textBlocFamille').innerHTML = `<strong>Reste à vivre actuel :</strong> ${resultats.reste_a_vivre_actuel} €`;
+                document.getElementById('textBlocFamille').innerHTML = '';
 
             } catch (error) {
                 console.error('Erreur API :', error);
                 document.getElementById('aiVerdictHeadline').innerText = "Erreur de connexion";
-                document.getElementById('textBlocTravail').innerHTML = "<strong>Impossible de contacter le serveur.</strong><br>Vérifiez votre connexion.";
+                document.getElementById('textBlocTravail').innerHTML = "<p>Impossible de contacter le serveur. Réessayez.</p>";
             } finally {
                 document.getElementById('loadingBlock').style.display = 'none';
                 document.getElementById('resultsBlock').style.display = 'block';
