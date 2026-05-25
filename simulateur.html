@@ -7,9 +7,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,600;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-                :root {
+        :root {
             --lfi-red: #cc2443;
             --lfi-dark: #121212;
             --lfi-light: #f8f9fa;
@@ -36,7 +37,8 @@
         }
 
         .main-layout {
-            width: 85%;margin: 0 auto;
+            width: 85%;
+            margin: 0 auto;
             position: relative;
             z-index: 1;
             min-height: 100vh;
@@ -122,9 +124,38 @@
             color: rgba(255, 255, 255, 0.5);
         }
 
+        .footer-share {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .footer-share span {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-right: 5px;
+        }
+        .footer-share a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 20px;
+            display: inline-block;
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease;
+        }
+        .footer-share a:hover {
+            background: var(--lfi-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transform: translateY(-2px) scale(1.1);
+        }
+
         @media (max-width: 1024px) { .main-layout { width: 90%; } header { margin-left: -5%; padding: 30px 5%; } }
 
-                .simulator-layout { max-width: 700px; margin: 0 auto; width: 100%; }.results-wide-layout { max-width: 1400px; margin: 0 auto; width: 100%; }
+        .simulator-layout { max-width: 700px; margin: 0 auto; width: 100%; }
+        .results-wide-layout { max-width: 1400px; margin: 0 auto; width: 100%; }
 
         .step-progress-bar {
             display: flex;
@@ -155,15 +186,18 @@
         .step-dot.completed { border-color: var(--lfi-purple); background: var(--lfi-purple); }
 
         .simulator-step-card {
-            display: none; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 40px 30px; border-radius: 6px; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            display: none; 
+            background: rgba(255, 255, 255, 0.03); 
+            border: 2px solid transparent;
+            border-image: var(--lfi-gradient) 1;
+            box-shadow: 0 0 20px rgba(121, 40, 202, 0.15);
+            padding: 40px 30px; 
+            border-radius: 4px; 
+            backdrop-filter: blur(5px); 
+            -webkit-backdrop-filter: blur(5px);
         }
 
         .simulator-step-card.active { display: block; }
-        #stepCard-1 { border-left: 4px solid var(--lfi-red); }
-        #stepCard-2 { border-left: 4px solid var(--lfi-cyan); }
-        #stepCard-3 { border-left: 4px solid var(--lfi-green); }
-        #stepCard-4 { border-left: 4px solid var(--lfi-orange); }
 
         .simulator-step-card h2 { font-size: 24px; text-transform: uppercase; margin: 0 0 15px 0; letter-spacing: -0.5px; font-weight: 800; }
         .simulator-step-card p.intro-text { font-size: 15px; font-weight: 400; color: rgba(255, 255, 255, 0.9); margin-bottom: 25px; }
@@ -175,18 +209,12 @@
             width: 100%; padding: 14px 16px; background: #1e1e1e; border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 4px; color: var(--text-light); font-family: 'Montserrat', sans-serif; font-size: 14px; transition: all 0.3s ease;
         }
-
         .input-field:focus { outline: none; border-color: var(--lfi-purple); box-shadow: 0 0 8px rgba(121, 40, 202, 0.3); }
 
-        select.input-field {
-            cursor: pointer; appearance: none; -webkit-appearance: none; -moz-appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23ffffff' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat; background-position: calc(100% - 15px) center; padding-right: 40px;
-        }
+        select.input-field { cursor: pointer; }
+        select.input-field option { background-color: #1e1e1e; color: var(--text-light); padding: 12px; }
 
-        select.input-field option { background-color: #1e1e1e; color: var(--text-light); padding: 12px; font-size: 14px; }
-
-        .form-conditional-box { display: none; border-left: 2px solid rgba(255, 255, 255, 0.1); padding-left: 20px; margin-top: 20px; }
+        .form-conditional-box { display: none; margin-top: 25px; }
         .form-conditional-box.show { display: block; }
 
         .sim-actions { display: flex; justify-content: space-between; margin-top: 40px; gap: 15px; align-items: center; }
@@ -204,97 +232,50 @@
         }
         .btn-next:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(204, 36, 67, 0.5); }
 
-                .loading-section {
-            display: none; text-align: center; padding: 40px;
-            animation: fadeIn 0.4s ease forwards;
-        }
-
+        .loading-section { display: none; text-align: center; padding: 40px; animation: fadeIn 0.4s ease forwards; }
         .spinner {
             width: 50px; height: 50px; border: 3px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%; border-top-color: var(--lfi-red);
-            margin: 0 auto 20px auto; animation: spin 1s linear infinite;
+            border-radius: 50%; border-top-color: var(--lfi-red); margin: 0 auto 20px auto; animation: spin 1s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-                .results-section { display: none; margin-top: 20px; animation: fadeIn 0.6s ease forwards; width: 100%; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }.results-hero-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-bottom: 3px solid transparent;
-            border-image: var(--lfi-gradient) 1;
-            border-radius: 4px;
-            padding: 30px 40px;
-            text-align: left;
-            margin-bottom: 35px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .results-hero-card h3 { 
-            font-size: 12px; 
-            text-transform: uppercase; 
-            margin: 0; 
-            letter-spacing: 2px; 
-            color: var(--lfi-red);
-            font-weight: 600; 
-        }
-        .results-hero-card .ai-verdict { 
-            font-size: 22px; 
-            font-weight: 800; 
-            line-height: 1.4; 
-            color: #ffffff;
-            margin: 0;
-        }.theme-cards-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 35px;
-            align-items: stretch;
-        }
+        .results-section { display: none; margin-top: 20px; animation: fadeIn 0.6s ease forwards; width: 100%; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .theme-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 6px;
-            padding: 24px 20px;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s ease;
+        .results-hero-card {
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 3px solid transparent; border-image: var(--lfi-gradient) 1;
+            border-radius: 4px; padding: 30px 40px; text-align: left; margin-bottom: 35px;
+            display: flex; flex-direction: column; gap: 6px;
         }
-        .theme-card:hover {
-            background: rgba(255, 255, 255, 0.03);
-            border-color: rgba(255, 255, 255, 0.1);
-        }.card-travail { border-top: 4px solid var(--lfi-red); }
+        .results-hero-card h3 { font-size: 12px; text-transform: uppercase; margin: 0; letter-spacing: 2px; color: var(--lfi-red); font-weight: 600; }
+        .results-hero-card .ai-verdict { font-size: 22px; font-weight: 800; line-height: 1.4; color: #ffffff; margin: 0; }
+
+        .theme-cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 35px; align-items: stretch; }
+        .theme-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 6px; padding: 24px 20px; display: flex; flex-direction: column; transition: all 0.3s ease; }
+        .theme-card:hover { background: rgba(255, 255, 255, 0.03); border-color: rgba(255, 255, 255, 0.1); }
+
+        .card-travail { border-top: 4px solid var(--lfi-red); }
         .card-logement { border-top: 4px solid var(--lfi-cyan); }
         .card-transports { border-top: 4px solid var(--lfi-green); }
-        .card-famille { border-top: 4px solid var(--lfi-purple); }
+        .card-famille { border-top: 4px solid var(--lfi-orange); }
 
-        .theme-card-header {
-            margin-bottom: 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            padding-bottom: 10px;
-        }
-        .theme-card-header h4 { font-size: 14px; margin: 0; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; color: #ffffff; }.theme-card-body { font-size: 13.5px; line-height: 1.6; color: rgba(255, 255, 255, 0.85); }
+        .theme-card-header { margin-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); padding-bottom: 10px; }
+        .theme-card-header h4 { font-size: 14px; margin: 0; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; color: #ffffff; }
+
+        .theme-card-body { font-size: 13.5px; line-height: 1.6; color: rgba(255, 255, 255, 0.85); }
+        
         .theme-card-body p { margin: 0 0 12px 0; }
         .theme-card-body p:last-child { margin-bottom: 0; }
         .theme-card-body ul { list-style: none; padding-left: 0; margin: 12px 0; }
-        .theme-card-body li { position: relative; padding-left: 15px; margin-bottom: 8px; font-size: 13px; }
-        .theme-card-body li::before { content: "→"; position: absolute; left: 0; color: rgba(255, 255, 255, 0.3); font-weight: bold; }
-        .theme-card-body strong { color: #ffffff; background: rgba(255, 255, 255, 0.07); padding: 1px 4px; border-radius: 3px; font-weight: 600; }
+        .theme-card-body li { position: relative; padding-left: 18px; margin-bottom: 8px; font-size: 13px; line-height: 1.5; }
+        .theme-card-body li::before { content: "→"; position: absolute; left: 0; color: var(--lfi-red); font-weight: bold; }
+        .theme-card-body strong { color: #ffffff; background: rgba(255, 255, 255, 0.1); padding: 2px 5px; border-radius: 3px; font-weight: 600; }
 
-        .btn-reset-container { text-align: center; margin-bottom: 20px; }@media (max-width: 1200px) {
-            .theme-cards-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-            }
-        }
-        @media (max-width: 680px) {
-            .theme-cards-grid {
-                grid-template-columns: 1fr;
-            }
-            .results-hero-card { padding: 20px; }
-            .results-hero-card .ai-verdict { font-size: 18px; }
-        }
+        .btn-reset-container { text-align: center; margin-bottom: 20px; }
+
+        @media (max-width: 1200px) { .theme-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+        @media (max-width: 680px) { .theme-cards-grid { grid-template-columns: 1fr; } .results-hero-card { padding: 20px; } .results-hero-card .ai-verdict { font-size: 18px; } footer { flex-direction: column; gap: 15px; text-align: center; } }
     </style>
 </head>
 <body>
@@ -317,7 +298,7 @@
 
         <section class="page-title-section">
             <h1>Le Simulateur Populaire <span class="title-slashes"><span class="slash-red">/</span><span class="slash-cyan">/</span><span class="slash-green">/</span><span class="slash-orange">/</span></span></h1>
-            <p>Une analyse budgétaire sur mesure propulsée par l'intelligence artificielle croisée aux mesures officielles.</p>
+            <p>Une analysis budgétaire sur mesure propulsée par l'intelligence artificielle croisée aux mesures officielles.</p>
         </section>
 
         <main>
@@ -335,11 +316,32 @@
                     
                     <div class="simulator-step-card active" id="stepCard-1">
                         <h2>Votre profil & situation pro</h2>
-                        <p class="intro-text">Base d'analyse pour le calcul du SMIC, de l'encadrement des salaires et des revalorisations sectorielles.</p>
+                        <p class="intro-text">Base d'analyse pour le calcul des mesures sociales, réformes fiscales et l'égalité des droits.</p>
                         
                         <div class="input-group">
+                            <label for="sexe">Sexe :</label>
+                            <select id="sexe" class="input-field" required>
+                                <option value="" disabled selected hidden>— Veuillez sélectionner —</option>
+                                <option value="homme">Homme</option>
+                                <option value="femme">Femme</option>
+                                <option value="autre">Autre (Non-binaire, intersexe, etc.)</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="trancheAge">Tranche d'âge :</label>
+                            <select id="trancheAge" class="input-field" required>
+                                <option value="" disabled selected hidden>— Veuillez sélectionner —</option>
+                                <option value="moins25">Moins de 25 ans</option>
+                                <option value="25-64">25 à 64 ans</option>
+                                <option value="plus65">65 ans et plus</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
                             <label for="statutPro">Situation professionnelle actuelle :</label>
-                            <select id="statutPro" class="input-field" onchange="gererChampsConditionnels()">
+                            <select id="statutPro" class="input-field" onchange="gererChampsConditionnels()" required>
+                                <option value="" disabled selected hidden>— Veuillez sélectionner —</option>
                                 <option value="salarie">Salarié(e) du privé</option>
                                 <option value="fonctionnaire">Agent public / Fonctionnaire</option>
                                 <option value="entrepreneur">Entrepreneur / Dirigeant TPE-PME</option>
@@ -350,19 +352,20 @@
                             </select>
                         </div>
 
-                        <div class="input-group form-conditional-box show" id="cond-temps-travail">
+                        <div class="input-group form-conditional-box" id="cond-temps-travail">
                             <label for="tempsTravail">Temps de travail hebdomadaire actuel :</label>
                             <select id="tempsTravail" class="input-field">
-                                <option value="32">32h (Semaine de 4 jours expérimentée ou souhaitée)</option>
-                                <option value="35">35h (Temps plein légal traditionnel)</option>
-                                <option value="39">39h (ou plus avec heures sup / RTT)</option>
-                                <option value="24">Temps partiel (subi ou choisi)</option>
-                                <option value="forfait">Forfait jours / Statut cadre</option>
+                                <option value="" disabled selected hidden>— Veuillez sélectionner —</option>
+                                <option value="32">32h</option>
+                                <option value="35">35h</option>
+                                <option value="39">39h</option>
+                                <option value="24">Temps partiel</option>
+                                <option value="forfait">Forfait jours / Cadre</option>
                             </select>
                         </div>
 
                         <div class="input-group">
-                            <label for="revenuIndiv">Votre revenu net mensuel individuel (avant impôts) :</label>
+                            <label for="revenuIndiv">Votre revenu net mensuel individuel :</label>
                             <input type="number" id="revenuIndiv" class="input-field" placeholder="Ex: 1550" min="0" required>
                         </div>
 
@@ -374,11 +377,12 @@
 
                     <div class="simulator-step-card" id="stepCard-2">
                         <h2>Votre foyer & géographie</h2>
-                        <p class="intro-text">Permet d'évaluer la structure fiscale (quotient) et l'impact local des services publics.</p>
+                        <p class="intro-text">Permet d'évaluer le quotient familial et l'impact de la fiscalité.</p>
                         
                         <div class="input-group">
                             <label for="situationFoyer">Composition de votre foyer :</label>
-                            <select id="situationFoyer" class="input-field" onchange="gererChampsConditionnels()">
+                            <select id="situationFoyer" class="input-field" onchange="gererChampsConditionnels()" required>
+                                <option value="" disabled selected hidden>— Veuillez sélectionner —</option>
                                 <option value="celibataire">Célibataire</option>
                                 <option value="couple-libre">En couple (Union libre)</option>
                                 <option value="pacs">Pacsé(e)</option>
@@ -393,8 +397,9 @@
                         </div>
 
                         <div class="input-group">
-                            <label for="enfantsCharge">Nombre de personnes/enfants à charge fiscale :</label>
-                            <select id="enfantsCharge" class="input-field" onchange="gererChampsConditionnels()">
+                            <label for="enfantsCharge">Nombre d'enfants à charge fiscale :</label>
+                            <select id="enfantsCharge" class="input-field" required>
+                                <option value="" disabled selected hidden>— Veuillez sélectionner —</option>
                                 <option value="0">0</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -403,27 +408,10 @@
                             </select>
                         </div>
 
-                        <div class="form-conditional-box" id="cond-ages-enfants">
-                            <label style="display:block; font-size:14px; font-weight:600; margin-bottom:15px;">Âge de vos enfants à charge :</label>
-                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px;">
-                                <div class="input-group">
-                                    <label style="font-size:12px; opacity:0.8;">Moins de 3 ans</label>
-                                    <input type="number" id="enfantMoins3" class="input-field" value="0" min="0">
-                                </div>
-                                <div class="input-group">
-                                    <label style="font-size:12px; opacity:0.8;">De 3 à 18 ans</label>
-                                    <input type="number" id="enfant3a18" class="input-field" value="0" min="0">
-                                </div>
-                                <div class="input-group">
-                                    <label style="font-size:12px; opacity:0.8;">Plus de 18 ans</label>
-                                    <input type="number" id="enfantPlus18" class="input-field" value="0" min="0">
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="input-group">
-                            <label for="localisation">Type de zone géographique de votre lieu de vie :</label>
-                            <select id="localisation" class="input-field">
+                            <label for="localisation">Type de zone de votre lieu de vie :</label>
+                            <select id="localisation" class="input-field" required>
+                                <option value="" disabled selected hidden>— Veuillez sélectionner —</option>
                                 <option value="urbain">Zone Urbaine / Grande métropole</option>
                                 <option value="periurbain">Zone Périurbaine / Couronne résidentielle</option>
                                 <option value="rural">Zone Rurale / Commune rurale</option>
@@ -431,8 +419,8 @@
                         </div>
 
                         <div class="input-group">
-                            <label for="departement">Département ou Ville de résidence :</label>
-                            <input type="text" id="departement" class="input-field" placeholder="Ex: Lyon (69) ou Cantal (15)">
+                            <label for="departement">Ville ou département de résidence :</label>
+                            <input type="text" id="departement" class="input-field" placeholder="Ex: Lyon (69)" required>
                         </div>
 
                         <div class="sim-actions">
@@ -443,39 +431,48 @@
 
                     <div class="simulator-step-card" id="stepCard-3">
                         <h2>Logement & Énergie</h2>
-                        <p class="intro-text">Base d'ajustement liée au blocage des tarifs réglementés et à l'encadrement des loyers.</p>
+                        <p class="intro-text">Base d'ajustement liée au blocage des tarifs énergétiques et encadrement des loyers.</p>
                         
                         <div class="input-group">
                             <label for="statutLogement">Statut d'occupation :</label>
-                            <select id="statutLogement" class="input-field">
+                            <select id="statutLogement" class="input-field" onchange="gererChampsConditionnels()" required>
+                                <option value="" disabled selected hidden>— Veuillez sélectionner —</option>
                                 <option value="loc-prive">Locataire (parc privé)</option>
                                 <option value="loc-social">Locataire (social / HLM)</option>
                                 <option value="proprietaire">Propriétaire (résidence principale)</option>
+                                <option value="gratuit">Hébergé(e) à titre gratuit</option>
                             </select>
+                        </div>
+
+                        <div class="input-group" id="cond-loyer">
+                            <label for="montantLoyer">Montant mensuel du loyer (ou remboursement de crédit) (€) :</label>
+                            <input type="number" id="montantLoyer" class="input-field" placeholder="Ex: 650" min="0">
                         </div>
 
                         <div class="input-group">
                             <label for="modeChauffage">Type de chauffage principal :</label>
-                            <select id="modeChauffage" class="input-field">
+                            <select id="modeChauffage" class="input-field" required>
+                                <option value="" disabled selected hidden>— Veuillez sélectionner —</option>
                                 <option value="electricite">Électricité</option>
                                 <option value="gaz">Gaz naturel</option>
                                 <option value="fioul">Fioul domestique</option>
-                                <option value="bois">Bois / Granulés de bois</option>
-                                <option value="urbain">Réseau de chaleur urbain</option>
+                                <option value="bois">Bois / Granulés</option>
+                                <option value="urbain">Réseau urbain</option>
                             </select>
                         </div>
 
                         <div class="input-group">
-                            <label for="factureEnergie">Montant moyen mensuel de votre facture d'énergie (€) :</label>
+                            <label for="factureEnergie">Montant moyen mensuel d'énergie (€) :</label>
                             <input type="number" id="factureEnergie" class="input-field" placeholder="Ex: 140" min="0">
                         </div>
 
                         <div class="input-group">
-                            <label for="isolationLogement">Performance globale de l'isolation du logement :</label>
-                            <select id="isolationLogement" class="input-field">
-                                <option value="bonne">Excellente / Logement récent isolé</option>
+                            <label for="isolationLogement">Performance de l'isolation du logement :</label>
+                            <select id="isolationLogement" class="input-field" required>
+                                <option value="" disabled selected hidden>— Veuillez sélectionner —</option>
+                                <option value="bonne">Excellente / Récente</option>
                                 <option value="moyenne">Standard / Moyenne</option>
-                                <option value="passoire">Passoire thermique évidente (F ou G)</option>
+                                <option value="passoire">Passoire thermique (F ou G)</option>
                             </select>
                         </div>
 
@@ -487,21 +484,33 @@
 
                     <div class="simulator-step-card" id="stepCard-4">
                         <h2>Transports & Consommation</h2>
-                        <p class="intro-text">Indicateurs pour la gratuité ciblée des transports, le carburant à 1,50 € et les paniers de première nécessité.</p>
+                        <p class="intro-text">Indicateurs liés au blocage du carburant à 1,50 € et mesures d'urgence sociale.</p>
                         
                         <div class="input-group">
-                            <label for="modeTransport">Principal moyen de transport utilisé pour le quotidien :</label>
-                            <select id="modeTransport" class="input-field" onchange="gererChampsConditionnels()">
-                                <option value="voiture">Voiture individuelle / Deux-roues thermique</option>
-                                <option value="commun">Transports collectifs (TER, Bus, Métro, Tramway)</option>
-                                <option value="douce">Mobilités douces (Vélo, marche, trottinette)</option>
-                                <option value="mixte">Usage mixte (Voiture + Transports)</option>
+                            <label for="modeTransport">Principal moyen de transport au quotidien :</label>
+                            <select id="modeTransport" class="input-field" onchange="gererChampsConditionnels()" required>
+                                <option value="" disabled selected hidden>— Veuillez sélectionner —</option>
+                                <option value="voiture">Voiture / Deux-roues thermique</option>
+                                <option value="voiture-elec">Voiture / Deux-roues électrique</option>
+                                <option value="commun">Transports collectifs (TER, Métro, Bus)</option>
+                                <option value="douce">Mobilités douces (Vélo, marche)</option>
+                                <option value="mixte">Usage mixte</option>
                             </select>
                         </div>
 
-                        <div class="input-group form-conditional-box show" id="cond-km-voiture">
-                            <label for="kmSemaine">Kilomètres hebdomadaires moyens parcourus en véhicule motorisé :</label>
+                        <div class="input-group form-conditional-box" id="cond-km-voiture">
+                            <label for="kmSemaine">Kilomètres hebdomadaires moyens en véhicule :</label>
                             <input type="number" id="kmSemaine" class="input-field" value="120" min="0">
+                        </div>
+
+                        <div class="input-group form-conditional-box" id="cond-budget-essence">
+                            <label for="essenceHebdo">Budget carburant (essence/gazole) hebdomadaire estimé (€) :</label>
+                            <input type="number" id="essenceHebdo" class="input-field" placeholder="Ex: 40" min="0">
+                        </div>
+
+                        <div class="input-group form-conditional-box" id="cond-abonnement-transport">
+                            <label for="abonnementTransport">Montant mensuel de votre abonnement transports collectifs (€) :</label>
+                            <input type="number" id="abonnementTransport" class="input-field" placeholder="Ex: 75" min="0">
                         </div>
 
                         <div class="input-group">
@@ -519,8 +528,7 @@
 
                 <div class="loading-section" id="loadingBlock">
                     <div class="spinner"></div>
-                    <p style="font-weight: 600; font-size: 16px; letter-spacing: 0.5px;">Génération de votre bilan personnalisé ...</p>
-                    <p style="font-size: 13px; opacity: 0.6; max-width: 450px; margin: 0 auto;">Le simulateur croise vos indicateurs géographiques et budgétaires avec les mesures du programme et prépare un bilan contextualisé.</p>
+                    <p style="font-weight: 600; font-size: 16px; letter-spacing: 0.5px;">Génération de votre bilan personnalisé par l'IA...</p>
                 </div>
             </div>
 
@@ -534,30 +542,22 @@
                     <div class="theme-cards-grid">
                         
                         <div class="theme-card card-travail">
-                            <div class="theme-card-header">
-                                <h4>Travail &amp; Impôts</h4>
-                            </div>
+                            <div class="theme-card-header"><h4>Travail &amp; Impôts</h4></div>
                             <div class="theme-card-body" id="textBlocTravail"></div>
                         </div>
 
                         <div class="theme-card card-logement">
-                            <div class="theme-card-header">
-                                <h4>Logement &amp; Énergie</h4>
-                            </div>
+                            <div class="theme-card-header"><h4>Logement &amp; Énergie</h4></div>
                             <div class="theme-card-body" id="textBlocLogement"></div>
                         </div>
 
                         <div class="theme-card card-transports">
-                            <div class="theme-card-header">
-                                <h4>Transports &amp; Éco</h4>
-                            </div>
+                            <div class="theme-card-header"><h4>Transports &amp; Éco</h4></div>
                             <div class="theme-card-body" id="textBlocTransports"></div>
                         </div>
 
                         <div class="theme-card card-famille">
-                            <div class="theme-card-header">
-                                <h4>Famille &amp; École</h4>
-                            </div>
+                            <div class="theme-card-header"><h4>Famille &amp; École</h4></div>
                             <div class="theme-card-body" id="textBlocFamille"></div>
                         </div>
 
@@ -571,13 +571,21 @@
         </main>
 
         <footer>
-            <p>&copy; 2026 - Template officiel de travail - Front-end Mock-up v3</p>
-            <p>Module Formulaire Nettoyé &amp; Préparé pour intégration API Backend (JSON-Prompt Pipeline)</p>
+            <p>&copy; 2026 - Proposition de refonte</p>
+            <div class="footer-share">
+                <span>Partager :</span>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmelenchon2027.netlify.app" target="_blank" rel="noopener" title="Partager sur Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fmelenchon2027.netlify.app" target="_blank" rel="noopener" title="Partager sur X"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://www.instagram.com" target="_blank" rel="noopener" title="Suivre sur Instagram"><i class="fa-brands fa-instagram"></i></a>
+            </div>
         </footer>
 
     </div>
 
     <script>
+        const MODE_TEST_SANS_BACKEND = true; 
+        const BACKEND_API_URL = 'http://127.0.0.1:8000/api/analyse-budget';
+
         let etapeActuelle = 1;
         const etapesTotales = 4;
 
@@ -600,7 +608,7 @@
         function changerEtape(sens) {
             if (sens === 1) {
                 const carteActive = document.getElementById(`stepCard-${etapeActuelle}`);
-                const obligatoires = carteActive.querySelectorAll('input[required]');
+                const obligatoires = carteActive.querySelectorAll('select[required], input[required]');
                 let verification = true;
                 obligatoires.forEach(champ => {
                     if (!champ.value) {
@@ -629,60 +637,90 @@
             const aUnConjoint = ['couple-libre', 'pacs', 'marie'].includes(situationFoyer);
             document.getElementById('cond-revenu-conjoint').classList.toggle('show', aUnConjoint);
 
-            const nbEnfants = parseInt(document.getElementById('enfantsCharge').value);
-            document.getElementById('cond-ages-enfants').classList.toggle('show', nbEnfants > 0);
+            const statutLogement = document.getElementById('statutLogement').value;
+            document.getElementById('cond-loyer').style.display = (statutLogement === 'gratuit') ? 'none' : 'block';
 
             const transport = document.getElementById('modeTransport').value;
-            document.getElementById('cond-km-voiture').classList.toggle('show', transport !== 'douce' && transport !== 'commun');
+            document.getElementById('cond-km-voiture').classList.toggle('show', ['voiture', 'voiture-elec', 'mixte'].includes(transport));
+            document.getElementById('cond-budget-essence').classList.toggle('show', transport === 'voiture');
+            document.getElementById('cond-abonnement-transport').classList.toggle('show', ['commun', 'mixte'].includes(transport));
         }
 
-                        async function interrogerSimulateurIA() {
+        async function interrogerSimulateurIA() {
             document.getElementById('stepCard-4').classList.remove('active');
             document.getElementById('simulatorProgressBlock').style.display = 'none';
             document.getElementById('loadingBlock').style.display = 'block';
             window.scrollTo({ top: 120, behavior: 'smooth' });
 
-            const revenuIndiv = parseFloat(document.getElementById('revenuIndiv').value) || 0;
-            const revenuConjoint = parseFloat(document.getElementById('revenuConjoint').value) || 0;
-            const factureEnergie = parseFloat(document.getElementById('factureEnergie').value) || 0;
-            const budgetAlimentation = parseFloat(document.getElementById('budgetAlimentation').value) || 0;
+            if (MODE_TEST_SANS_BACKEND) {
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                const fauxResultatBackend = {
+                    "headline": "+315 € / mois estimés en plus pour votre reste à vivre",
+                    "bloc_travail": "Votre situation professionnelle va directement bénéficier du passage du **SMIC à 1600 € net**.\n\n* En passant aux **32h sans baisse de salaire**, votre taux horaire réel augmente automatiquement.\n* Concernant l'impôt citoyen à **14 tranches**, votre niveau de revenu se situe sous le seuil d'augmentation, entraînant une baisse fiscale.",
+                    "bloc_logement": "L'**encadrement des loyers** stabilise directement vos charges fixes du foyer.\n\n* **Blocage des prix de l'énergie** (gaz et électricité).\n* Mise en place de la **gratuité des premiers kWh** indispensables pour couvrir vos besoins vitaux.",
+                    "bloc_transports": "Le blocage des prix du carburant à **1,50 € le litre maximum** met fin à la flambée de vos dépenses à la pompe.\n\n* Sur la base de votre budget essence hebdomadaire, le gain estimé est immédiat.\n* La prise en charge renforcée ou la baisse ciblée des abonnements de **transports collectifs** allège la facture pour vos trajets quotidiens.",
+                    "bloc_famille": "Vos enfants à charge bénéficient de mesures de gratuité intégrale de l'éducation publique :\n\n* **Cantine scolaire à 0 €**.\n* Fournitures et manuels scolaires entièrement pris en charge.\n* Accès garanti aux activités péri-scolaires."
+                };
 
-            const dataPayload = {
-                revenus: revenuIndiv + revenuConjoint,
-                loyer: 0,
-                charges: factureEnergie + budgetAlimentation,
-                situation: document.getElementById('situationFoyer').value,
-                enfants: parseInt(document.getElementById('enfantsCharge').value) || 0
-            };
+                injecterResultats(fauxResultatBackend);
+            } else {
+                const dataPayload = {
+                    sexe: document.getElementById('sexe').value,
+                    trancheAge: document.getElementById('trancheAge').value,
+                    statutPro: document.getElementById('statutPro').value,
+                    tempsTravail: document.getElementById('tempsTravail').value || '35',
+                    revenuIndiv: parseFloat(document.getElementById('revenuIndiv').value) || 0,
+                    situationFoyer: document.getElementById('situationFoyer').value,
+                    revenuConjoint: parseFloat(document.getElementById('revenuConjoint').value) || 0,
+                    enfantsACharge: parseInt(document.getElementById('enfantsCharge').value) || 0,
+                    localisation: document.getElementById('localisation').value,
+                    ville: document.getElementById('departement').value || '',
+                    statutLogement: document.getElementById('statutLogement').value,
+                    montantLoyer: parseFloat(document.getElementById('montantLoyer').value) || 0,
+                    modeChauffage: document.getElementById('modeChauffage').value,
+                    factureEnergie: parseFloat(document.getElementById('factureEnergie').value) || 0,
+                    isolation: document.getElementById('isolationLogement').value,
+                    modeTransport: document.getElementById('modeTransport').value,
+                    kmSemaine: parseFloat(document.getElementById('kmSemaine').value) || 0,
+                    essenceHebdo: parseFloat(document.getElementById('essenceHebdo').value) || 0,
+                    abonnementTransport: parseFloat(document.getElementById('abonnementTransport').value) || 0,
+                    budgetAlimentation: parseFloat(document.getElementById('budgetAlimentation').value) || 0
+                };
 
-            try {
-                const response = await fetch('https://avenir-en-commun-melenchon2027.onrender.com/api/analyse-budget', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(dataPayload)
-                });
+                try {
+                    const response = await fetch(BACKEND_API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(dataPayload)
+                    });
 
-                if (!response.ok) {
-                    throw new Error('Erreur serveur');
+                    if (!response.ok) throw new Error("Réponse incorrecte du serveur API.");
+                    const resultats = await response.json();
+                    injecterResultats(resultats);
+
+                } catch (error) {
+                    console.error("Erreur de liaison API :", error);
+                    document.getElementById('aiVerdictHeadline').innerText = "Erreur de connexion";
+                    document.getElementById('textBlocTravail').innerHTML = "<strong>Impossible d'établir la communication avec le module d'analyse.</strong><br><br>Vérifiez que le serveur Python (FastAPI) est actif sur le port 8000.";
+                    document.getElementById('loadingBlock').style.display = 'none';
+                    document.getElementById('resultsBlock').style.display = 'block';
                 }
-
-                const resultats = await response.json();
-
-                document.getElementById('aiVerdictHeadline').innerText = `Analyse de votre budget`;
-                document.getElementById('textBlocTravail').innerHTML = marked.parse(resultats.analyse || '');
-                document.getElementById('textBlocLogement').innerHTML = '';
-                document.getElementById('textBlocTransports').innerHTML = '';
-                document.getElementById('textBlocFamille').innerHTML = `<strong>Reste à vivre actuel :</strong> ${resultats.reste_a_vivre_actuel} €`;
-
-            } catch (error) {
-                console.error('Erreur API :', error);
-                document.getElementById('aiVerdictHeadline').innerText = "Erreur de connexion";
-                document.getElementById('textBlocTravail').innerHTML = "<strong>Impossible de contacter le serveur.</strong><br>Vérifiez votre connexion.";
-            } finally {
-                document.getElementById('loadingBlock').style.display = 'none';
-                document.getElementById('resultsBlock').style.display = 'block';
-                window.scrollTo({ top: 120, behavior: 'smooth' });
             }
+        }
+
+        function injecterResultats(data) {
+            document.getElementById('aiVerdictHeadline').innerText = data.headline || "Analyse terminée";
+            const parseMarkdown = (txt) => window.marked ? marked.parse(txt || '') : `<p>${txt}</p>`;
+
+            document.getElementById('textBlocTravail').innerHTML = parseMarkdown(data.bloc_travail);
+            document.getElementById('textBlocLogement').innerHTML = parseMarkdown(data.bloc_logement);
+            document.getElementById('textBlocTransports').innerHTML = parseMarkdown(data.bloc_transports);
+            document.getElementById('textBlocFamille').innerHTML = parseMarkdown(data.bloc_famille);
+
+            document.getElementById('loadingBlock').style.display = 'none';
+            document.getElementById('resultsBlock').style.display = 'block';
+            window.scrollTo({ top: 120, behavior: 'smooth' });
         }
 
         function reinitialiserSimulateur() {
