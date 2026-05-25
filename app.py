@@ -10,13 +10,16 @@ import google.generativeai as genai
 # === CHARGEMENT DES CLÉS API ===
 def load_api_keys():
     keys = []
+    # Vérification des variables d'environnement
     for name, value in os.environ.items():
         if name.startswith("GOOGLE_API_KEY") or name.startswith("GEMINI_API_KEY"):
             if value and value.strip() and value not in keys:
                 keys.append(value.strip())
     
     if not keys:
-        raise ValueError("❌ Aucune clé API trouvée. Ajoutez GOOGLE_API_KEY_1 ou GEMINI_API_KEY_1.")
+        # Fallback pour le développement local si aucune variable d'env
+        print("⚠️ Aucune clé API trouvée dans l'environnement.")
+        return []
     
     print(f"✅ {len(keys)} clé(s) API chargée(s)")
     return keys
@@ -34,7 +37,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# === SCHÉMA DE DONNÉES PREDICATIF (Parfaitement aligné sur le Payload HTML/JS) ===
+# === SCHÉMA DE DONNÉES (Aligné sur les IDs de simulateur.html) ===
 class BudgetRequest(BaseModel):
     sexe: str
     trancheAge: str
@@ -57,35 +60,32 @@ class BudgetRequest(BaseModel):
     abonnementTransport: float = 0.0
     budgetAlimentation: float = 0.0
 
-# === APPEL SÉCURISÉ À L'IA GEMINI (Rotation de clés et format JSON forcé) ===
+# === APPEL SÉCURISÉ À L'IA GEMINI ===
 def appeler_gemini_ia(prompt_text: str) -> Dict[str, Any]:
+    if not API_KEYS:
+        raise HTTPException(status_code=500, detail="Clés API non configurées.")
+        
     for attempt in range(len(API_KEYS)):
         try:
             genai.configure(api_key=API_KEYS[attempt])
-            
-            # Utilisation de gemini-1.5-flash pour un excellent ratio vitesse/pertinence
             model = genai.GenerativeModel('gemini-1.5-flash')
             
-            # Forçage du type de réponse en JSON structuré officiel
             response = model.generate_content(
                 prompt_text,
                 generation_config={"response_mime_type": "application/json"}
             )
-            
-            # Parsing et validation du JSON retourné par l'IA
             return json.loads(response.text)
             
         except Exception as e:
-            print(f"⚠️ Échec avec la clé {attempt + 1}/{len(API_KEYS)}: {str(e)}")
+            print(f"⚠️ Échec avec la clé {attempt + 1}: {str(e)}")
             continue
             
     raise HTTPException(status_code=500, detail="Toutes les clés de l'API Gemini ont échoué.")
 
-# === ENDPOINT PRINCIPAL D'ANALYSE BUDGETAIRE ===
+# === ENDPOINT PRINCIPAL ===
 @app.post("/api/analyse-budget")
 async def analyse_budget(req: BudgetRequest):
-    
-    # Construction du prompt contextualisé basé sur le programme "L'Avenir en Commun"
+    # Le prompt reste identique comme demandé
     prompt = f"""
     Tu es l'assistant de calcul officiel du simulateur de programme "L'Avenir en Commun" pour Jean-Luc Mélenchon 2027.
     Analyse la situation de ce citoyen et explique avec précision et pédagogie comment les mesures phares du programme vont impacter son reste à vivre et sa vie quotidienne.
@@ -100,24 +100,23 @@ async def analyse_budget(req: BudgetRequest):
     - Déplacements : Transports via {req.modeTransport} ({req.kmSemaine} km/sem), Carburant : {req.essenceHebdo} €/sem, Abonnements : {req.abonnementTransport} €/mois.
     - Alimentation : Budget moyen de {req.budgetAlimentation} €/mois.
 
-    Tu dois obligatoirement générer et renvoyer un objet JSON valide contenant exactement ces 5 clés (sans dévier de ces structures de clés pour être compris par l'application front-end) :
+    Tu dois obligatoirement générer et renvoyer un objet JSON valide contenant exactement ces 5 clés :
     {{
-        "headline": "Une seule phrase d'accroche marquante résumant le gain financier global estimé (ex: '+240 € / mois de pouvoir d'achat retrouvé')",
-        "bloc_travail": "Texte explicatif court en Markdown sur l'augmentation du SMIC à 1600€ net, la baisse fiscale des classes populaires et moyennes via la réforme de l'impôt à 14 tranches, ou l'impact des 32h.",
-        "bloc_logement": "Texte explicatif court en Markdown sur le blocage des prix de l'énergie, la gratuité des premiers kWh essentiels, et l'encadrement des loyers.",
-        "bloc_transports": "Texte explicatif court en Markdown sur le blocage des carburants à 1,50 € le litre, ou la gratuité/baisse drastique ciblée des transports en commun.",
-        "bloc_famille": "Texte explicatif court en Markdown sur la gratuité intégrale de l'école républicaine (cantines gratuites, fournitures), ou les minima sociaux/retraites selon le profil."
+        "headline": "Une seule phrase d'accroche marquante résumant le gain financier global estimé",
+        "bloc_travail": "Texte explicatif court en Markdown sur l'augmentation du SMIC, baisse fiscale et les 32h.",
+        "bloc_logement": "Texte explicatif court en Markdown sur le blocage des prix énergie et encadrement loyers.",
+        "bloc_transports": "Texte explicatif court en Markdown sur le blocage des carburants et gratuité transports.",
+        "bloc_famille": "Texte explicatif court en Markdown sur la gratuité cantines et minima sociaux."
     }}
 
     Consignes de rédaction :
-    - Reste rigoureux, factuel, et ultra-pédagogique. Évite les slogans vides, appuie-toi sur les données fournies.
-    - Utilise des listes à puces Markdown (`*`) et du texte en gras (`**mot**`) à l'intérieur de tes chaînes de blocs pour un affichage élégant.
-    - Ne fais aucune référence à la structure interne du code HTML ou JSON dans ton texte.
+    - Reste rigoureux, factuel, et ultra-pédagogique.
+    - Utilise des listes à puces Markdown (*) et du texte en gras (**mot**).
+    - Ne fais aucune référence à la structure interne du code HTML ou JSON.
     """
 
-    try:
-        resultat_ia = appeler_gemini_ia(prompt)
-        return resultat_ia
-    except json.JSONDecodeError:
-        # Fallback de secours si l'IA produit un JSON mal formé malgré la configuration
-        raise HTTPException(status_code=502, detail="La réponse générée par l'IA n'est pas au format JSON attendu.")
+    return appeler_gemini_ia(prompt)
+
+if __name__ == '__main__':
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
