@@ -9,10 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,600;0,800;1,400&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        /* ==========================================================================
-           CHARTE GRAPHIQUE LFI (Strictement calquée sur programme.html)
-           ========================================================================== */
-        :root {
+                :root {
             --lfi-red: #cc2443;
             --lfi-dark: #121212;
             --lfi-light: #f8f9fa;
@@ -39,8 +36,7 @@
         }
 
         .main-layout {
-            width: 85%; /* Légèrement élargi pour maximiser l'espace horizontal des résultats */
-            margin: 0 auto;
+            width: 85%;margin: 0 auto;
             position: relative;
             z-index: 1;
             min-height: 100vh;
@@ -128,13 +124,7 @@
 
         @media (max-width: 1024px) { .main-layout { width: 90%; } header { margin-left: -5%; padding: 30px 5%; } }
 
-        /* ==========================================================================
-           ÉLÉMENTS DU FORMULAIRE ET DES ÉTAPES
-           ========================================================================== */
-        .simulator-layout { max-width: 700px; margin: 0 auto; width: 100%; }
-        
-        /* Conteneur élargi spécifiquement pour la restitution globale des résultats */
-        .results-wide-layout { max-width: 1400px; margin: 0 auto; width: 100%; }
+                .simulator-layout { max-width: 700px; margin: 0 auto; width: 100%; }.results-wide-layout { max-width: 1400px; margin: 0 auto; width: 100%; }
 
         .step-progress-bar {
             display: flex;
@@ -214,10 +204,7 @@
         }
         .btn-next:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(204, 36, 67, 0.5); }
 
-        /* ==========================================================================
-           ZONE DE CHARGEMENT / ATTENTE IA
-           ========================================================================== */
-        .loading-section {
+                .loading-section {
             display: none; text-align: center; padding: 40px;
             animation: fadeIn 0.4s ease forwards;
         }
@@ -229,14 +216,8 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* ==========================================================================
-           ZONE DE RÉSULTATS SOBRE, LARGE ET ULTRA-COMPACTE (4 CÔTE À CÔTE)
-           ========================================================================== */
-        .results-section { display: none; margin-top: 20px; animation: fadeIn 0.6s ease forwards; width: 100%; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Encart du bilan horizontal optimisé, sobre et étendu sur toute la largeur */
-        .results-hero-card {
+                .results-section { display: none; margin-top: 20px; animation: fadeIn 0.6s ease forwards; width: 100%; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }.results-hero-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-bottom: 3px solid transparent;
@@ -263,10 +244,7 @@
             line-height: 1.4; 
             color: #ffffff;
             margin: 0;
-        }
-
-        /* Grille thématique sur 4 colonnes strictes côte à côte */
-        .theme-cards-grid {
+        }.theme-cards-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
@@ -286,10 +264,7 @@
         .theme-card:hover {
             background: rgba(255, 255, 255, 0.03);
             border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        /* Délinéation par couleur sobre (Bordure supérieure uniquement pour aérer la largeur) */
-        .card-travail { border-top: 4px solid var(--lfi-red); }
+        }.card-travail { border-top: 4px solid var(--lfi-red); }
         .card-logement { border-top: 4px solid var(--lfi-cyan); }
         .card-transports { border-top: 4px solid var(--lfi-green); }
         .card-famille { border-top: 4px solid var(--lfi-purple); }
@@ -299,10 +274,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.06);
             padding-bottom: 10px;
         }
-        .theme-card-header h4 { font-size: 14px; margin: 0; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; color: #ffffff; }
-
-        /* Corps de texte Markdown ultra-optimisé pour les petits espaces */
-        .theme-card-body { font-size: 13.5px; line-height: 1.6; color: rgba(255, 255, 255, 0.85); }
+        .theme-card-header h4 { font-size: 14px; margin: 0; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; color: #ffffff; }.theme-card-body { font-size: 13.5px; line-height: 1.6; color: rgba(255, 255, 255, 0.85); }
         .theme-card-body p { margin: 0 0 12px 0; }
         .theme-card-body p:last-child { margin-bottom: 0; }
         .theme-card-body ul { list-style: none; padding-left: 0; margin: 12px 0; }
@@ -310,10 +282,7 @@
         .theme-card-body li::before { content: "→"; position: absolute; left: 0; color: rgba(255, 255, 255, 0.3); font-weight: bold; }
         .theme-card-body strong { color: #ffffff; background: rgba(255, 255, 255, 0.07); padding: 1px 4px; border-radius: 3px; font-weight: 600; }
 
-        .btn-reset-container { text-align: center; margin-bottom: 20px; }
-
-        /* Pivot vers un mode empilé uniquement sur les résolutions tablettes / mobiles */
-        @media (max-width: 1200px) {
+        .btn-reset-container { text-align: center; margin-bottom: 20px; }@media (max-width: 1200px) {
             .theme-cards-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 20px;
@@ -667,63 +636,48 @@
             document.getElementById('cond-km-voiture').classList.toggle('show', transport !== 'douce' && transport !== 'commun');
         }
 
-        /* ==========================================================================
-           CONNEXION RÉELLE AU BACKEND FASTAPI (PYTHON) via FETCH
-           ========================================================================== */
-        async function interrogerSimulateurIA() {
+                        async function interrogerSimulateurIA() {
             document.getElementById('stepCard-4').classList.remove('active');
             document.getElementById('simulatorProgressBlock').style.display = 'none';
             document.getElementById('loadingBlock').style.display = 'block';
             window.scrollTo({ top: 120, behavior: 'smooth' });
 
+            const revenuIndiv = parseFloat(document.getElementById('revenuIndiv').value) || 0;
+            const revenuConjoint = parseFloat(document.getElementById('revenuConjoint').value) || 0;
+            const factureEnergie = parseFloat(document.getElementById('factureEnergie').value) || 0;
+            const budgetAlimentation = parseFloat(document.getElementById('budgetAlimentation').value) || 0;
+
             const dataPayload = {
-                statutPro: document.getElementById('statutPro').value,
-                tempsTravail: document.getElementById('tempsTravail').value,
-                revenuIndiv: parseFloat(document.getElementById('revenuIndiv').value) || 0,
-                situationFoyer: document.getElementById('situationFoyer').value,
-                revenuConjoint: parseFloat(document.getElementById('revenuConjoint').value) || 0,
-                enfantsACharge: parseInt(document.getElementById('enfantsCharge').value) || 0,
-                localisation: document.getElementById('localisation').value,
-                ville: document.getElementById('departement').value,
-                statutLogement: document.getElementById('statutLogement').value,
-                modeChauffage: document.getElementById('modeChauffage').value,
-                factureEnergie: parseFloat(document.getElementById('factureEnergie').value) || 0,
-                isolation: document.getElementById('isolationLogement').value,
-                modeTransport: document.getElementById('modeTransport').value,
-                kmSemaine: parseFloat(document.getElementById('kmSemaine').value) || 0,
-                budgetAlimentation: parseFloat(document.getElementById('budgetAlimentation').value) || 0
+                revenus: revenuIndiv + revenuConjoint,
+                loyer: 0,
+                charges: factureEnergie + budgetAlimentation,
+                situation: document.getElementById('situationFoyer').value,
+                enfants: parseInt(document.getElementById('enfantsCharge').value) || 0
             };
 
             try {
                 const response = await fetch('https://avenir-en-commun-melenchon2027.onrender.com/api/analyse-budget', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(dataPayload)
                 });
 
                 if (!response.ok) {
-                    throw new Error("Le serveur distant a renvoyé un code d'erreur.");
+                    throw new Error('Erreur serveur');
                 }
 
                 const resultats = await response.json();
 
-                // Assignation du titre et parsing Markdown individuel des blocs JSON thématiques
-                document.getElementById('aiVerdictHeadline').innerText = resultats.headline;
-                
-                document.getElementById('textBlocTravail').innerHTML = marked.parse(resultats.bloc_travail || '');
-                document.getElementById('textBlocLogement').innerHTML = marked.parse(resultats.bloc_logement || '');
-                document.getElementById('textBlocTransports').innerHTML = marked.parse(resultats.bloc_transports || '');
-                document.getElementById('textBlocFamille').innerHTML = marked.parse(resultats.bloc_famille || '');
+                document.getElementById('aiVerdictHeadline').innerText = `Analyse de votre budget`;
+                document.getElementById('textBlocTravail').innerHTML = marked.parse(resultats.analyse || '');
+                document.getElementById('textBlocLogement').innerHTML = '';
+                document.getElementById('textBlocTransports').innerHTML = '';
+                document.getElementById('textBlocFamille').innerHTML = `<strong>Reste à vivre actuel :</strong> ${resultats.reste_a_vivre_actuel} €`;
 
             } catch (error) {
-                console.error("Erreur de liaison API :", error);
-                
-                document.getElementById('aiVerdictHeadline').innerText = "Une erreur technique s'est produite.";
-                
-                // Message d'erreur propre réinjecté de façon homogène dans le bloc de travail
-                document.getElementById('textBlocTravail').innerHTML = "<strong>Impossible d'établir la connexion avec le module d'analyse IA.</strong><br><br>Veuillez vous assurer que votre script Python Backend (<code>app.py</code>) est actif sur le port 8000.";
+                console.error('Erreur API :', error);
+                document.getElementById('aiVerdictHeadline').innerText = "Erreur de connexion";
+                document.getElementById('textBlocTravail').innerHTML = "<strong>Impossible de contacter le serveur.</strong><br>Vérifiez votre connexion.";
             } finally {
                 document.getElementById('loadingBlock').style.display = 'none';
                 document.getElementById('resultsBlock').style.display = 'block';
