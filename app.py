@@ -81,6 +81,12 @@ def interroger_gemini(prompt: str):
 def root():
     return {"status": "ok", "keys_loaded": len(API_KEYS)}
 
+@app.route('/health')
+def health():
+    response = jsonify({"status": "ok"})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response, 200
+
 @app.post("/api/analyse-budget")
 async def analyse_budget(req: BudgetRequest):
     prompt = f"""
