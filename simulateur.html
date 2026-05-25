@@ -610,14 +610,14 @@
             document.getElementById('cond-abonnement-transport').classList.toggle('show', ['commun', 'mixte'].includes(transport));
         }
 
-        async function interrogerSimulateurIA() {
+async function interrogerSimulateurIA() {
     // 1. Affiche le loader
     document.getElementById('stepCard-4').classList.remove('active');
     document.getElementById('simulatorProgressBlock').style.display = 'none';
     document.getElementById('loadingBlock').style.display = 'block';
     window.scrollTo({ top: 120, behavior: 'smooth' });
 
-    // 2. Récupère toutes les valeurs du formulaire
+    // 2. Récupère toutes les valeurs - ID CORRIGÉS
     const data = {
         sexe: document.getElementById('sexe').value,
         trancheAge: document.getElementById('trancheAge').value,
@@ -626,14 +626,14 @@
         revenuIndiv: parseFloat(document.getElementById('revenuIndiv').value) || 0,
         situationFoyer: document.getElementById('situationFoyer').value,
         revenuConjoint: parseFloat(document.getElementById('revenuConjoint').value) || 0,
-        enfantsACharge: parseInt(document.getElementById('enfantsACharge').value) || 0,
+        enfantsACharge: parseInt(document.getElementById('enfantsCharge').value) || 0, // CORRIGÉ
         localisation: document.getElementById('localisation').value,
-        ville: document.getElementById('ville').value,
+        ville: document.getElementById('departement').value, // CORRIGÉ
         statutLogement: document.getElementById('statutLogement').value,
         montantLoyer: parseFloat(document.getElementById('montantLoyer').value) || 0,
         modeChauffage: document.getElementById('modeChauffage').value,
         factureEnergie: parseFloat(document.getElementById('factureEnergie').value) || 0,
-        isolation: document.getElementById('isolation').value,
+        isolation: document.getElementById('isolationLogement').value, // CORRIGÉ
         modeTransport: document.getElementById('modeTransport').value,
         kmSemaine: parseFloat(document.getElementById('kmSemaine').value) || 0,
         essenceHebdo: parseFloat(document.getElementById('essenceHebdo').value) || 0,
@@ -649,28 +649,27 @@
             body: JSON.stringify(data)
         });
 
-        if (!response.ok) {
-            throw new Error(`Erreur HTTP: ${response.status}`);
-        }
-
+        if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`);
         const result = await response.json();
 
-        // 4. Affiche les résultats
+        // 4. Affiche les résultats - ID CORRIGÉS
         document.getElementById('loadingBlock').style.display = 'none';
+        document.getElementById('formContainer').style.display = 'none'; // Cache le form
         document.getElementById('resultsBlock').style.display = 'block';
         
-        // Adapte ces lignes aux id de ta page de résultats
-        document.getElementById('headline').innerHTML = result.headline;
-        document.getElementById('bloc_travail').innerHTML = result.bloc_travail;
-        document.getElementById('bloc_logement').innerHTML = result.bloc_logement;
-        document.getElementById('bloc_transports').innerHTML = result.bloc_transports;
-        document.getElementById('bloc_famille').innerHTML = result.bloc_famille;
+        document.getElementById('aiVerdictHeadline').innerHTML = result.headline;
+        document.getElementById('textBlocTravail').innerHTML = window.marked ? marked.parse(result.bloc_travail) : result.bloc_travail;
+        document.getElementById('textBlocLogement').innerHTML = window.marked ? marked.parse(result.bloc_logement) : result.bloc_logement;
+        document.getElementById('textBlocTransports').innerHTML = window.marked ? marked.parse(result.bloc_transports) : result.bloc_transports;
+        document.getElementById('textBlocFamille').innerHTML = window.marked ? marked.parse(result.bloc_famille) : result.bloc_famille;
 
     } catch (error) {
         console.error('Erreur de liaison API :', error);
         document.getElementById('loadingBlock').style.display = 'none';
-        document.getElementById('errorBlock').style.display = 'block';
-        document.getElementById('errorMessage').innerText = "Impossible d'établir la communication avec le module d'analyse. Réessaie dans 30s.";
+        alert("Impossible d'établir la communication avec le module d'analyse. Vérifie que l'API Render est réveillée et réessaie.");
+        // Remet le form visible
+        document.getElementById('stepCard-4').classList.add('active');
+        document.getElementById('simulatorProgressBlock').style.display = 'flex';
     }
 }
 
