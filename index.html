@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,600;0,800;1,400&display=swap" rel="stylesheet">
     <style>
-        /* Charte graphique LFI & Mélenchon 2027 */
         :root {
             --lfi-red: #cc2443;
             --lfi-red-alpha: rgba(204, 36, 67, 0.85);
@@ -34,7 +33,6 @@
             overflow-x: hidden;
         }
 
-        /* ARRIÈRE-PLAN DYNAMIQUE (VIDÉO + OVERLAY) */
         .video-container {
             position: fixed;
             top: 114px;                        
@@ -63,7 +61,6 @@
             -webkit-backdrop-filter: grayscale(50%) brightness(55%) blur(2px);
         }
 
-        /* STRUCTURE PRINCIPALE */
         .main-layout {
             width: 80%;
             margin: 0 auto;
@@ -74,7 +71,6 @@
             flex-direction: column;
         }
 
-        /* HEADER */
         header {
             background-color: var(--lfi-dark); 
             width: 100vw;                      
@@ -110,13 +106,12 @@
             letter-spacing: -0.5px;
         }
 
-        /* Modification ici pour passer le "2027" en dégradé */
         .logo-text span {
             background: var(--lfi-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            display: inline-block; /* Nécessaire pour le rendu correct du dégradé */
+            display: inline-block;
         }
 
         nav ul {
@@ -158,7 +153,6 @@
             background: var(--lfi-gradient);
         }
 
-        /* HERO SECTION */
         .hero-section {
             margin: 80px 0;
             max-width: 700px; 
@@ -192,7 +186,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             display: inline-block;
-}
+        }
 
         .hero-section p {
             font-size: 18px;
@@ -246,7 +240,6 @@
             transform: translateY(-2px);
         }
 
-        /* BLOCS PILIERS DU PROGRAMME */
         .pillars-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -265,9 +258,6 @@
             border-right: 1px solid rgba(255, 255, 255, 0.05);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             transition: background 0.3s, transform 0.3s;
-        }
-
-        .pillar-card {
             border-top: 4px solid var(--lfi-red);
         }
 
@@ -304,7 +294,6 @@
             font-weight: 300;
         }
 
-        /* FOOTER */
         footer {
             margin-top: auto;
             padding: 30px 0;
@@ -316,11 +305,59 @@
             color: rgba(255, 255, 255, 0.5);
         }
 
-        /* Responsive */
+        footer p {
+            margin: 0;
+        }
+
+        .footer-share {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .footer-share span {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .footer-share a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .footer-share a svg {
+            width: 16px;
+            height: 16px;
+            fill: rgba(255, 255, 255, 0.6);
+            transition: fill 0.3s ease;
+        }
+
+        .footer-share a:hover {
+            background: var(--lfi-gradient);
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(204, 36, 67, 0.4);
+        }
+
+        .footer-share a:hover svg {
+            fill: #ffffff;
+        }
+
         @media (max-width: 1024px) {
             .main-layout { width: 90%; }
             .pillars-grid { grid-template-columns: 1fr; gap: 20px; }
             .hero-section h1 { font-size: 38px; }
+            footer { flex-direction: column; gap: 15px; text-align: center; }
         }
     </style>
 </head>
@@ -329,7 +366,6 @@
     <div class="video-container">
         <video autoplay muted loop playsinline poster="https://www.youtube.com/watch?v=b5atq_VZd2M">
             <source src="extrait.mp4" type="video/mp4">
-            Votre navigateur ne supporte pas les vidéos en arrière-plan.
         </video>
         <div class="video-overlay"></div>
     </div>
@@ -355,7 +391,7 @@
                 <div class="badge">Le Programme Citoyen</div>
                 <h1>L'Avenir <br>en Commun <span>.</span></h1>
                 <p>
-                    Plus qu'un simple programme électoral, <strong>L'Avenir en commun</strong> est un projet global de transformation de la société porté par La France Insoumise. Construit de manière collaborative, it propose des réponses concrètes face aux crises démocratiques, écologiques et sociales actuelles pour redonner le pouvoir au peuple.
+                    Plus qu'un simple programme électoral, <strong>L'Avenir en commun</strong> est un projet global de transformation de la société porté par La France Insoumise. Construit de manière collaborative, il propose des réponses concrètes face aux crises démocratiques, écologiques et sociales actuelles pour redonner le pouvoir au peuple.
                 </p>
                 <p> Vous souhaitez savoir ce que le programme change concrètement pour vous ? Nous avons créé un simulateur qui vous permettra de voir en un clin d'oeil les mesures qui vous concernent directement.
                 </p>
@@ -386,8 +422,20 @@
         </main>
 
         <footer>
-            <p>&copy; 2026 - Template officiel de travail - Front-end Mock-up v2</p>
-            <p>Charte Graphique Respectée : Montserrat | Dégradé Rouge-Violet | Grayscale Overlay 85%</p>
+            <p>&copy; 2026 - Proposition de refonte</p>
+            
+            <div class="footer-share">
+                <span>Partager :</span>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmelenchon2027.netlify.app" target="_blank" rel="noopener noreferrer" title="Partager sur Facebook">
+                    <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
+                </a>
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </a>
+                <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fmelenchon2027.netlify.app" target="_blank" rel="noopener noreferrer" title="Partager sur X">
+                    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+            </div>
         </footer>
 
     </div>
