@@ -71,7 +71,7 @@ def interroger_gemini(prompt: str):
             
         except Exception as e:
             last_error = str(e)
-            print(f"⚠️ Clé {i+1} échouée: {last_error}")
+            print(f"⚠ Clé {i+1} échouée: {last_error}")
             continue
     
     raise HTTPException(500, f"Toutes les clés ont échoué. Dernière erreur: {last_error}")
@@ -81,11 +81,9 @@ def interroger_gemini(prompt: str):
 def root():
     return {"status": "ok", "keys_loaded": len(API_KEYS)}
 
-@app.route('/health')
+@app.get("/health")  # <- CORRIGÉ ICI
 def health():
-    response = jsonify({"status": "ok"})
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    return response, 200
+    return {"status": "ok"}
 
 @app.post("/api/analyse-budget")
 async def analyse_budget(req: BudgetRequest):
