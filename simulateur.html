@@ -688,15 +688,16 @@ async function interrogerSimulateurIA() {
         }
 
         function reinitialiserSimulateur() {
-            document.getElementById('populaireForm').reset();
-            etapeActuelle = 1;
-            document.getElementById('resultsBlock').style.display = 'none';
-            document.getElementById('simulatorProgressBlock').style.display = 'flex';
-            document.getElementById('stepCard-1').classList.add('active');
-            gererChampsConditionnels();
-            rafraichirBarreProgression();
-            window.scrollTo({ top: 120, behavior: 'smooth' });
-        }
+          document.getElementById('populaireForm').reset();
+          etapeActuelle = 1;
+          document.getElementById('resultsBlock').style.display = 'none';
+          document.getElementById('formContainer').style.display = 'block'; // <-- AJOUTE ÇA
+          document.getElementById('simulatorProgressBlock').style.display = 'flex';
+          document.getElementById('stepCard-1').classList.add('active');
+          gererChampsConditionnels();
+          rafraichirBarreProgression();
+          window.scrollTo({ top: 120, behavior: 'smooth' });
+      }
 
         rafraichirBarreProgression();
     </script>
