@@ -81,7 +81,7 @@ def interroger_gemini(prompt: str):
 def root():
     return {"status": "ok", "keys_loaded": len(API_KEYS)}
 
-@app.get("/health")  # <- CORRIGÉ ICI
+@app.api_route("/health", methods=["GET", "HEAD"])  # <- CHANGE ICI
 def health():
     return {"status": "ok"}
 
